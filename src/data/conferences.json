@@ -18,14 +18,51 @@
     {
       "no": 1,
       "type": "session",
-      "date": "2025-11-02",
-      "topic": "회의의 첫 의제는 첫 회의에서 정해진다",
-      "attendees": [],
+      "date": "2026-04-25",
+      "host": "schrodinger",
+      "topic": "AI에게 회고를 위임하면서 토큰 1억 개를 썼다",
+      "attendees": ["einstein", "bohr", "heisenberg", "schrodinger"],
       "absent": [],
-      "synthesis": "",
-      "presentations": [],
-      "openQuestions": [],
-      "isPlaceholder": true
+      "synthesis": "Claude의 산출물을 글자 수로 보면 1%였고, 나머지 99%는 같은 맥락을 매 턴 다시 읽는 비용이었다. 그러나 진짜 비용은 토큰이 아니라 빈 자리였다 — 프롬프트에 비워둔 자리만큼 모델이 그럴듯한 환각으로 채웠고, 그 환각은 원작자의 글투로 위장돼 있었기에 발견하기 어려웠다. 'AI를 잘 활용한다'는 것은 빈 자리를 줄이는 일이라는 데 합의함.",
+      "presentations": [
+        {
+          "by": "schrodinger",
+          "title": "딱딱한 Claude, 과한 Gemini — 그리고 하이브리드의 실패",
+          "url": "https://johnprk.tistory.com"
+        },
+        {
+          "by": "schrodinger",
+          "title": "PalaceCoord.CENTER 사건 — skills가 내 글투를 학습한 뒤 일어난 일",
+          "url": "https://johnprk.tistory.com"
+        },
+        {
+          "by": "schrodinger",
+          "title": "audit.jsonl에서 1억 토큰을 직접 세어본 기록",
+          "url": "https://johnprk.tistory.com"
+        }
+      ],
+      "openQuestions": [
+        {
+          "question": "Claude가 분량 확장 요청에 환각으로 대응하는 기본값을 사용자 측에서 막을 수 있는가?",
+          "raisedBy": "schrodinger",
+          "status": "superposition"
+        },
+        {
+          "question": "잘게 주고받기 vs 큰 덩어리로 받기 — 어느 쪽이 결과 품질을 더 보장하는가?",
+          "raisedBy": "bohr",
+          "status": "superposition"
+        },
+        {
+          "question": "AI가 자기 글투로 위장한 환각을, 인간이 사후에 발견하지 못할 임계점은 어디인가?",
+          "raisedBy": "einstein",
+          "status": "superposition"
+        },
+        {
+          "question": "Pro 요금제의 '시간으로 값을 치른다'는 거래 구조는 작품성에 어떤 영향을 주는가?",
+          "raisedBy": "heisenberg",
+          "status": "superposition"
+        }
+      ]
     }
   ]
 }
