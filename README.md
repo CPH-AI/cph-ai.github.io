@@ -12,11 +12,16 @@
 ```
 Layer 0 — Arrival     1927년 브뤼셀, Hôtel Métropole 정문
                       ↓ click / Enter
-Layer 1 — Study       회의장 옆 서재. 4권의 책, 시계, 핀보드
-                      ↓ click a volume / Enter on focused
-Layer 2 — Book        펼쳐진 책. 좌측 frontispiece + 우측 bookplate
-                      ↓ Esc
-                      ← / → for prev / next volume
+Layer 1 — Study       회의장 옆 서재. 4권의 책, 시계, 핀보드, 회의록 노트
+                      ↓ 책 클릭 → Layer 2
+                      ↓ 회의록 노트 → Conference Archive
+Layer 2 — Book        펼쳐진 책. frontispiece + bookplate
+                      ↓ Reflection 클릭 → 회고 한 편 펼쳐짐
+                      ↓ Conference 클릭 → 해당 회차로 cross-link
+
+Conference Archive    /conferences   — 모든 회차 list
+                      /conference/N  — 한 회차 상세 (학술지 한 장)
+                      /conference/0  — founding manifesto
 ```
 
 ## 4 Volumes
@@ -54,15 +59,53 @@ Vite `base: "./"` + HashRouter 조합이라 GitHub Pages org 사이트 / 프로�
 
 ### Reflections (회고글) 추가
 
+회고는 사이트 내부에 책 한 페이지처럼 펼쳐집니다. `body` 배열에 문단을 적습니다.
+
 ```jsonc
 "reflections": [
   {
+    "id": "first-light",
     "title": "Conference No. 3 회고",
-    "url": "https://blog.example.com/post-url",
-    "date": "2025-11-16"
+    "date": "2025-11-16",
+    "internal": true,
+    "body": [
+      "첫 문단입니다. textIndent 없이 시작합니다.",
+      "두 번째 문단부터는 자동으로 들여쓰기가 들어갑니다.",
+      "원하는 만큼 문단을 추가하세요."
+    ]
   }
 ]
 ```
+
+외부 블로그로 link하고 싶다면 `internal: false` + `url: "..."`.
+
+### Conference (회의록) 추가
+
+`src/data/conferences.json`. 한 회차 = 학술지 한 장:
+
+```jsonc
+{
+  "no": 2,
+  "type": "session",
+  "date": "2025-11-09",
+  "topic": "에이전트 메모리의 휘발성",
+  "attendees": ["einstein", "bohr", "heisenberg", "schrodinger"],
+  "absent": [],
+  "synthesis": "메모리를 외부 저장소로 분리하면 toolcall이 멱등성을 잃는다는 잠정 합의.",
+  "presentations": [
+    { "by": "einstein", "title": "...", "url": "..." }
+  ],
+  "openQuestions": [
+    {
+      "question": "에이전트가 자기 자신의 결정을 forget할 권리가 있는가?",
+      "raisedBy": "bohr",
+      "status": "superposition"
+    }
+  ]
+}
+```
+
+`status`: `superposition` (논쟁 중) / `collapsed` (합의됨).
 
 ### Experiments (실험) 추가
 
