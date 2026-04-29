@@ -1,9 +1,11 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { useIsMobile } from "../hooks/useWindowSize.js";
 
 export default function Arrival() {
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
 
   const enter = () => navigate("/study");
 
@@ -17,6 +19,8 @@ export default function Arrival() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   });
+
+  if (isMobile) return <MobileArrival enter={enter} />;
 
   return (
     <motion.div
@@ -230,6 +234,105 @@ export default function Arrival() {
           </motion.text>
         </g>
       </svg>
+    </motion.div>
+  );
+}
+
+function MobileArrival({ enter }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.7 }}
+      onClick={enter}
+      style={{
+        width: "100%",
+        height: "100%",
+        background: "#0e1218",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "0",
+        cursor: "pointer",
+        userSelect: "none",
+        padding: "2rem"
+      }}
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2, duration: 0.7 }}
+        style={{ textAlign: "center" }}
+      >
+        <div style={{
+          fontFamily: "'SF Mono', Consolas, monospace",
+          fontSize: "10px",
+          letterSpacing: "0.4em",
+          color: "#c8941d",
+          opacity: 0.7,
+          marginBottom: "20px"
+        }}>
+          1927  ·  BRUSSELS
+        </div>
+
+        <div style={{
+          fontFamily: "Georgia, serif",
+          fontWeight: 700,
+          fontSize: "32px",
+          letterSpacing: "0.12em",
+          color: "#ece6d6",
+          marginBottom: "8px"
+        }}>
+          COPENHAGEN AI
+        </div>
+
+        <div style={{
+          fontFamily: "Georgia, serif",
+          fontStyle: "italic",
+          fontSize: "13px",
+          color: "#ece6d6",
+          opacity: 0.5,
+          marginBottom: "48px"
+        }}>
+          Mastering the Art of AI Utilization
+        </div>
+
+        <div style={{
+          width: "120px",
+          height: "0.5px",
+          background: "#c8941d",
+          opacity: 0.4,
+          margin: "0 auto 48px"
+        }} />
+
+        <motion.div
+          animate={{ opacity: [0.5, 1, 0.5] }}
+          transition={{ duration: 2.5, repeat: Infinity }}
+          style={{
+            fontFamily: "'SF Mono', Consolas, monospace",
+            fontSize: "10px",
+            letterSpacing: "0.35em",
+            color: "#c8941d",
+            opacity: 0.8
+          }}
+        >
+          TAP TO ENTER
+        </motion.div>
+      </motion.div>
+
+      <div style={{
+        position: "absolute",
+        bottom: "32px",
+        fontFamily: "'SF Mono', Consolas, monospace",
+        fontSize: "8px",
+        letterSpacing: "0.3em",
+        color: "#ece6d6",
+        opacity: 0.25
+      }}>
+        COPENHAGEN  AI  ·  2025
+      </div>
     </motion.div>
   );
 }

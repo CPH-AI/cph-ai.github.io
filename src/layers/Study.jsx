@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import data from "../data/members.json";
 import conferencesData from "../data/conferences.json";
+import { useIsMobile } from "../hooks/useWindowSize.js";
 
 const SIGILS = {
   einstein: (
@@ -49,6 +50,7 @@ function compressQuestion(q) {
 export default function Study() {
   const navigate = useNavigate();
   const [focused, setFocused] = useState(0);
+  const isMobile = useIsMobile();
 
   const openBook = (id) => navigate(`/book/${id}`);
 
@@ -89,6 +91,19 @@ export default function Study() {
 
   const visibleQuestions = openQuestions.slice(0, 3);
   const moreQuestions = Math.max(0, openQuestions.length - 3);
+
+  if (isMobile) {
+    return (
+      <MobileStudy
+        navigate={navigate}
+        openBook={openBook}
+        openQuestions={openQuestions}
+        experiments={data.books[0].experiments}
+        conferenceNumber={data.site.conferenceNumber}
+        nextConferenceDays={data.site.nextConferenceInDays}
+      />
+    );
+  }
 
   const positions = [-195, -65, 65, 195];
 
@@ -445,6 +460,182 @@ export default function Study() {
           <text>← BACK</text>
         </g>
       </svg>
+    </motion.div>
+  );
+}
+
+function MobileStudy({ navigate, openBook, openQuestions, experiments, conferenceNumber, nextConferenceDays }) {
+  const noStr = String(conferenceNumber).padStart(2, "0");
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      style={{
+        width: "100%",
+        height: "100%",
+        background: "#1a1410",
+        overflowY: "auto",
+        WebkitOverflowScrolling: "touch"
+      }}
+    >
+      <div style={{ padding: "20px 16px 40px" }}>
+
+        <div style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "24px"
+        }}>
+          <button
+            onClick={() => navigate("/")}
+            style={{ fontFamily: "var(--mono)", fontSize: "9px", letterSpacing: "0.3em", color: "var(--amber)", opacity: 0.8 }}
+          >
+            ← BACK
+          </button>
+          <span style={{ fontFamily: "var(--mono)", fontSize: "8px", letterSpacing: "0.3em", color: "var(--parchment)", opacity: 0.4 }}>
+            THE  STUDY
+          </span>
+        </div>
+
+        <div style={{ marginBottom: "28px" }}>
+          <div style={{ fontFamily: "var(--mono)", fontSize: "8px", letterSpacing: "0.35em", color: "var(--amber)", opacity: 0.7, marginBottom: "12px" }}>
+            F O U R · V O L U M E S
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
+            {data.books.map((book) => (
+              <button
+                key={book.id}
+                onClick={() => openBook(book.id)}
+                style={{
+                  background: book.coverColor,
+                  border: "0.5px solid #c8941d",
+                  padding: "16px 12px",
+                  textAlign: "left",
+                  cursor: "pointer"
+                }}
+              >
+                <div style={{ fontFamily: "var(--mono)", fontSize: "7px", letterSpacing: "0.25em", color: "#c8941d", opacity: 0.8, marginBottom: "4px" }}>
+                  VOL · {book.vol}
+                </div>
+                <div style={{ fontFamily: "Georgia, serif", fontStyle: "italic", fontSize: "15px", color: "var(--parchment)" }}>
+                  {book.physicist}
+                </div>
+                <div style={{ fontFamily: "Georgia, serif", fontStyle: "italic", fontSize: "10px", color: "var(--parchment)", opacity: 0.55, marginTop: "4px" }}>
+                  {book.role}
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ marginBottom: "28px" }}>
+          <div style={{ fontFamily: "var(--mono)", fontSize: "8px", letterSpacing: "0.3em", color: "var(--amber)", opacity: 0.7, marginBottom: "12px" }}>
+            OPEN  QUESTIONS
+          </div>
+          {openQuestions.length > 0 ? (
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              {openQuestions.map((q) => (
+                <button
+                  key={`${q.conferenceNo}-${q.idx}`}
+                  onClick={() => navigate(`/conference/${q.conferenceNo}#open-questions`)}
+                  style={{
+                    textAlign: "left",
+                    background: "#241a12",
+                    border: "0.5px dashed rgba(200,148,29,0.45)",
+                    padding: "10px 12px",
+                    cursor: "pointer"
+                  }}
+                >
+                  <div style={{ fontFamily: "var(--mono)", fontSize: "7px", letterSpacing: "0.15em", color: "var(--amber)", opacity: 0.7, marginBottom: "4px" }}>
+                    No.{q.conferenceNo} · {q.raisedByName}
+                  </div>
+                  <div style={{ fontFamily: "Georgia, serif", fontStyle: "italic", fontSize: "12px", color: "var(--parchment)", lineHeight: 1.4 }}>
+                    ⊙ {q.question}
+                  </div>
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div style={{ fontFamily: "Georgia, serif", fontStyle: "italic", fontSize: "12px", color: "var(--parchment)", opacity: 0.4 }}>
+              — 아직 발의된 질문이 없습니다
+            </div>
+          )}
+        </div>
+
+        <div style={{ marginBottom: "28px" }}>
+          <div style={{ fontFamily: "var(--mono)", fontSize: "8px", letterSpacing: "0.3em", color: "var(--amber)", opacity: 0.7, marginBottom: "12px" }}>
+            EXPERIMENTS
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+            {experiments.map((exp, i) => (
+              <button
+                key={exp.name}
+                onClick={() => exp.url && window.open(exp.url, "_blank")}
+                style={{
+                  textAlign: "left",
+                  background: "#241a12",
+                  border: exp.status === "live" ? "0.5px solid rgba(200,148,29,0.4)" : "0.5px dashed rgba(200,148,29,0.3)",
+                  padding: "10px 12px",
+                  cursor: "pointer",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center"
+                }}
+              >
+                <div>
+                  <div style={{ fontFamily: "var(--mono)", fontSize: "7px", letterSpacing: "0.15em", color: "var(--parchment)", opacity: 0.5, marginBottom: "3px" }}>
+                    EXP-{String(i + 1).padStart(3, "0")}
+                  </div>
+                  <div style={{ fontFamily: "Georgia, serif", fontStyle: "italic", fontSize: "13px", color: "var(--parchment)" }}>
+                    {exp.name}
+                  </div>
+                </div>
+                <div style={{
+                  width: "7px",
+                  height: "7px",
+                  borderRadius: "50%",
+                  background: exp.status === "live" ? "#1d9e75" : "#c8941d",
+                  opacity: exp.status === "live" ? 1 : 0.6,
+                  flexShrink: 0
+                }} />
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <button
+          onClick={() => navigate("/conferences")}
+          style={{
+            width: "100%",
+            background: "#241a12",
+            border: "0.5px solid rgba(200,148,29,0.5)",
+            padding: "16px",
+            cursor: "pointer",
+            textAlign: "center"
+          }}
+        >
+          <div style={{ fontFamily: "Georgia, serif", fontStyle: "italic", fontSize: "11px", color: "var(--parchment)", opacity: 0.55, marginBottom: "6px" }}>
+            Conference No. {noStr}
+          </div>
+          <motion.div
+            animate={{ opacity: [0.5, 0.9, 0.5] }}
+            transition={{ duration: 3, repeat: Infinity }}
+            style={{ fontFamily: "var(--mono)", fontSize: "9px", letterSpacing: "0.4em", color: "var(--amber)" }}
+          >
+            IN  PROGRESS
+          </motion.div>
+          <div style={{ fontFamily: "var(--mono)", fontSize: "8px", letterSpacing: "0.2em", color: "var(--parchment)", opacity: 0.35, marginTop: "8px" }}>
+            NEXT · in {nextConferenceDays} days  ·  tap to open archive
+          </div>
+        </button>
+
+        <div style={{ textAlign: "center", marginTop: "32px", fontFamily: "var(--mono)", fontSize: "8px", letterSpacing: "0.3em", color: "var(--parchment)", opacity: 0.25 }}>
+          THE  STUDY  ·  COPENHAGEN  AI
+        </div>
+      </div>
     </motion.div>
   );
 }
