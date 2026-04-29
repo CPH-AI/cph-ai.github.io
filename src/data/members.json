@@ -30,19 +30,19 @@
         {
           "name": "iq-blogger",
           "desc": "folder synthesis pipeline",
-          "url": "https://github.com/IQ-Dev-Lab/iq-blogger",
+          "url": "https://iq-proof.github.io",
           "status": "live"
         },
         {
           "name": "iq-dev-lab",
           "desc": "deep-dive repos",
-          "url": "https://github.com/IQ-Dev-Lab",
+          "url": "https://iq-dev-lab.github.io",
           "status": "live"
         },
         {
           "name": "iq-ai-lab",
           "desc": "AI utilization research",
-          "url": "https://github.com/IQ-AI-Lab",
+          "url": "https://iq-ai-lab.github.io",
           "status": "live"
         },
         {
