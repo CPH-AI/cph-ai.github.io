@@ -322,30 +322,36 @@ export default function Study() {
             EXPERIMENTS
           </text>
           <line x1="-54" y1="-82" x2="54" y2="-82" stroke="#c8941d" strokeWidth="0.4" opacity="0.4" />
-          <g transform="translate(0 -56)">
-            <rect x="-52" y="-12" width="104" height="28" fill="#ece6d6" opacity="0.9" stroke="#c8941d" strokeWidth="0.4" />
-            <text x="-44" y="-2" fontFamily="'SF Mono', Consolas, monospace" fontSize="7" fill="#1a1410" opacity="0.7" letterSpacing="0.1em">EXP-001</text>
-            <text x="-44" y="9" fontFamily="Georgia, serif" fontStyle="italic" fontSize="9" fill="#1a1410">iq-blogger live</text>
-            <circle cx="46" cy="-10" r="2" fill="#1d9e75" />
-          </g>
-          <g transform="translate(0 -16)">
-            <rect x="-52" y="-12" width="104" height="28" fill="#ece6d6" opacity="0.9" stroke="#c8941d" strokeWidth="0.4" />
-            <text x="-44" y="-2" fontFamily="'SF Mono', Consolas, monospace" fontSize="7" fill="#1a1410" opacity="0.7" letterSpacing="0.1em">EXP-002</text>
-            <text x="-44" y="9" fontFamily="Georgia, serif" fontStyle="italic" fontSize="9" fill="#1a1410">iq-dev-lab ×25</text>
-            <circle cx="46" cy="-10" r="2" fill="#1d9e75" />
-          </g>
-          <g transform="translate(0 24)">
-            <rect x="-52" y="-12" width="104" height="28" fill="#ece6d6" opacity="0.9" stroke="#c8941d" strokeWidth="0.4" />
-            <text x="-44" y="-2" fontFamily="'SF Mono', Consolas, monospace" fontSize="7" fill="#1a1410" opacity="0.7" letterSpacing="0.1em">EXP-003</text>
-            <text x="-44" y="9" fontFamily="Georgia, serif" fontStyle="italic" fontSize="9" fill="#1a1410">iq-ai-lab</text>
-            <circle cx="46" cy="-10" r="2" fill="#1d9e75" />
-          </g>
-          <g transform="translate(0 64)">
-            <rect x="-52" y="-12" width="104" height="28" fill="#ece6d6" opacity="0.5" stroke="#c8941d" strokeWidth="0.4" strokeDasharray="2 2" />
-            <text x="0" y="6" textAnchor="middle" fontFamily="Georgia, serif" fontStyle="italic" fontSize="9" fill="#ece6d6" opacity="0.55">
-              superposition…
-            </text>
-          </g>
+
+          {data.books[0].experiments.map((exp, i) => {
+            const isLive = exp.status === "live";
+            const yPos = -68 + i * 40;
+            return (
+              <motion.g
+                key={exp.name}
+                initial={{ y: yPos }}
+                animate={{ y: yPos }}
+                whileHover={exp.url ? { y: yPos - 2 } : {}}
+                transition={{ duration: 0.2 }}
+                style={{ cursor: exp.url ? "pointer" : "default" }}
+                onClick={() => exp.url && window.open(exp.url, "_blank")}
+              >
+                <rect x="-52" y="-12" width="104" height="28"
+                  fill={isLive ? "#ece6d6" : "#ece6d6"}
+                  opacity={isLive ? 0.9 : 0.5}
+                  stroke="#c8941d" strokeWidth="0.4"
+                  strokeDasharray={isLive ? "none" : "2 2"}
+                />
+                <text x="-44" y="-2" fontFamily="'SF Mono', Consolas, monospace" fontSize="7" fill="#1a1410" opacity="0.7" letterSpacing="0.1em">
+                  EXP-{String(i + 1).padStart(3, "0")}
+                </text>
+                <text x="-44" y="9" fontFamily="Georgia, serif" fontStyle="italic" fontSize="9" fill="#1a1410">
+                  {exp.name}
+                </text>
+                <circle cx="46" cy="-10" r="2" fill={isLive ? "#1d9e75" : "#c8941d"} opacity={isLive ? 1 : 0.6} />
+              </motion.g>
+            );
+          })}
         </g>
 
         <g transform="translate(500 540)">
