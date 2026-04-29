@@ -7,6 +7,7 @@ import Reflection from "./layers/Reflection.jsx";
 import Conferences from "./layers/Conferences.jsx";
 import Conference from "./layers/Conference.jsx";
 import Questions from "./layers/Questions.jsx";
+import NotFound from "./layers/NotFound.jsx";
 
 export default function App() {
   const location = useLocation();
@@ -21,7 +22,7 @@ export default function App() {
         <Route path="/conferences" element={<Conferences />} />
         <Route path="/conference/:no" element={<Conference />} />
         <Route path="/questions" element={<Questions />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </AnimatePresence>
   );
