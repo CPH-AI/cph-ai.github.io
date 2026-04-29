@@ -90,6 +90,23 @@ export default function Study() {
             <stop offset="0%" stopColor="#3a2a1a" stopOpacity="0.7" />
             <stop offset="100%" stopColor="#1a1410" stopOpacity="0" />
           </radialGradient>
+          <radialGradient id="lecGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#f4c97a" stopOpacity="0.35" />
+            <stop offset="100%" stopColor="#c8941d" stopOpacity="0" />
+          </radialGradient>
+          <linearGradient id="bookCover" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stopColor="#5a3a2a" />
+            <stop offset="100%" stopColor="#3a2a1f" />
+          </linearGradient>
+          <linearGradient id="lecCol" x1="0" x2="1" y1="0" y2="0">
+            <stop offset="0%" stopColor="#2a1f15" />
+            <stop offset="50%" stopColor="#3a2820" />
+            <stop offset="100%" stopColor="#241a12" />
+          </linearGradient>
+          <linearGradient id="lecTop" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stopColor="#4a3525" />
+            <stop offset="100%" stopColor="#2a1f15" />
+          </linearGradient>
           <pattern id="floor" x="0" y="0" width="80" height="20" patternUnits="userSpaceOnUse">
             <rect width="80" height="20" fill="#2a1f15" />
             <line x1="0" y1="0" x2="0" y2="20" stroke="#1a1410" strokeWidth="1" />
@@ -243,30 +260,25 @@ export default function Study() {
           </g>
         </g>
 
-        <g transform="translate(500 470)">
-          <ellipse cx="0" cy="48" rx="200" ry="10" fill="#0a0805" opacity="0.6" />
-          <ellipse cx="0" cy="0" rx="200" ry="34" fill="#3a2820" stroke="#c8941d" strokeWidth="1" />
-          <ellipse cx="0" cy="-2" rx="200" ry="34" fill="#4a3525" opacity="0.85" />
-          <line x1="-200" y1="-2" x2="-200" y2="20" stroke="#c8941d" strokeWidth="1" />
-          <line x1="200" y1="-2" x2="200" y2="20" stroke="#c8941d" strokeWidth="1" />
-          <path d="M -200 20 Q 0 30 200 20" fill="none" stroke="#c8941d" strokeWidth="1" />
+        <g transform="translate(500 540)">
+          <ellipse cx="0" cy="6" rx="78" ry="8" fill="#0a0805" opacity="0.55" />
+        </g>
 
+        <g transform="translate(620 480)">
           <text
             x="0"
-            y="-40"
-            textAnchor="middle"
+            y="0"
             fontFamily="Georgia, serif"
             fontStyle="italic"
             fontSize="11"
             fill="#ece6d6"
-            opacity="0.5"
+            opacity="0.55"
           >
             Conference No. {String(data.site.conferenceNumber).padStart(2, "0")}
           </text>
           <motion.text
             x="0"
-            y="-22"
-            textAnchor="middle"
+            y="20"
             fontFamily="'SF Mono', Consolas, monospace"
             fontSize="9"
             letterSpacing="0.4em"
@@ -276,53 +288,40 @@ export default function Study() {
           >
             IN  PROGRESS
           </motion.text>
+        </g>
 
-          <g
-            transform="translate(-90 -2)"
+        <g transform="translate(500 415)">
+          <path d="M -38 120 L 38 120 L 32 0 L -32 0 Z" fill="url(#lecCol)" stroke="#c8941d" strokeWidth="0.6" />
+          <line x1="-32" y1="0" x2="-38" y2="120" stroke="#c8941d" strokeWidth="0.5" opacity="0.4" />
+          <line x1="32" y1="0" x2="38" y2="120" stroke="#c8941d" strokeWidth="0.5" opacity="0.4" />
+
+          <rect x="-46" y="116" width="92" height="6" fill="#3a2820" stroke="#c8941d" strokeWidth="0.5" />
+
+          <path d="M -52 -5 L 52 -5 L 60 5 L -60 5 Z" fill="url(#lecTop)" stroke="#c8941d" strokeWidth="0.7" />
+          <path d="M -60 5 L 60 5 L 56 -22 L -56 -22 Z" fill="#3a2820" stroke="#c8941d" strokeWidth="0.7" />
+          <line x1="-56" y1="-22" x2="56" y2="-22" stroke="#c8941d" strokeWidth="0.5" opacity="0.5" />
+
+          <motion.g
             style={{ cursor: "pointer" }}
             onClick={() => navigate("/conferences")}
             role="button"
             aria-label="Open conference archive"
+            whileHover={{ y: -3 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
           >
-            <motion.g
-              whileHover={{ y: -3 }}
-              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <rect x="-26" y="-12" width="44" height="20" fill="#ece6d6" stroke="#1a1410" strokeWidth="0.5" opacity="0.92" />
-              <line x1="-22" y1="-7" x2="14" y2="-7" stroke="#1a1410" strokeWidth="0.4" opacity="0.4" />
-              <line x1="-22" y1="-3" x2="14" y2="-3" stroke="#1a1410" strokeWidth="0.4" opacity="0.4" />
-              <line x1="-22" y1="1" x2="10" y2="1" stroke="#1a1410" strokeWidth="0.4" opacity="0.4" />
-              <line x1="-22" y1="5" x2="14" y2="5" stroke="#1a1410" strokeWidth="0.4" opacity="0.4" />
-              <rect x="-26" y="-12" width="6" height="20" fill="#c8941d" opacity="0.6" />
-              <line x1="-30" y1="-13" x2="20" y2="-20" stroke="#1a1410" strokeWidth="0.6" />
-              <circle cx="20" cy="-20" r="1.4" fill="#c8941d" />
-            </motion.g>
-            <text
-              x="-4"
-              y="22"
-              textAnchor="middle"
-              fontFamily="'SF Mono', Consolas, monospace"
-              fontSize="8"
-              letterSpacing="0.25em"
-              fill="#c8941d"
-              opacity="0.7"
-            >
-              ◀ open the archive
-            </text>
-          </g>
+            <ellipse cx="0" cy="-5" rx="60" ry="6" fill="url(#lecGlow)" opacity="0.7" />
 
-          <g opacity="0.85" transform="translate(70 0)">
-            <rect x="-12" y="-10" width="22" height="14" fill="#ece6d6" stroke="#1a1410" strokeWidth="0.4" />
-            <rect x="-16" y="-12" width="30" height="3" fill="#ece6d6" />
-            <line x1="2" y1="-10" x2="10" y2="-20" stroke="#1a1410" strokeWidth="0.5" />
-            <circle cx="10" cy="-20" r="1.3" fill="#1a1410" />
-          </g>
+            <g transform="translate(0 -14)">
+              <rect x="-46" y="-3" width="92" height="3" fill="#1a1410" opacity="0.5" />
+              <rect x="-46" y="-22" width="92" height="22" fill="url(#bookCover)" stroke="#c8941d" strokeWidth="0.7" />
+              <rect x="-46" y="-22" width="6" height="22" fill="#c8941d" opacity="0.7" />
+              <rect x="-38" y="-22" width="2" height="22" fill="#1a1410" opacity="0.5" />
 
-          <g opacity="0.85" transform="translate(120 0)">
-            <circle cx="0" cy="-2" r="1.8" fill="#1a1410" />
-            <line x1="0" y1="0" x2="0" y2="-12" stroke="#ece6d6" strokeWidth="1.8" />
-            <ellipse cx="0" cy="-13" rx="3.5" ry="1.8" fill="#ece6d6" />
-          </g>
+              <text x="0" y="-15" textAnchor="middle" fontFamily="'SF Mono', Consolas, monospace" fontSize="6" letterSpacing="0.35em" fill="#c8941d" opacity="0.85">VOL · 2025</text>
+              <line x1="-32" y1="-12" x2="32" y2="-12" stroke="#c8941d" strokeWidth="0.4" opacity="0.6" />
+              <text x="0" y="-3" textAnchor="middle" fontFamily="Georgia, serif" fontWeight="700" fontSize="10" fill="#ece6d6" letterSpacing="0.05em">CONFERENCE  No.  {String(data.site.conferenceNumber).padStart(2, "0")}</text>
+            </g>
+          </motion.g>
         </g>
 
         <g fontFamily="'SF Mono', Consolas, monospace" fill="#ece6d6" opacity="0.45">
