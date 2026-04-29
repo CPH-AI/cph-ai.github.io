@@ -1,13 +1,15 @@
 import { motion } from "framer-motion";
-import { useNavigate, useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import data from "../data/conferences.json";
 import members from "../data/members.json";
 
 export default function Conference() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { no } = useParams();
   const noNum = parseInt(no, 10);
+  const [highlightOpen, setHighlightOpen] = useState(false);
 
   const conference = data.conferences.find((c) => c.no === noNum);
   const sessions = data.conferences
@@ -29,6 +31,19 @@ export default function Conference() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   });
+
+  useEffect(() => {
+    if (location.hash === "#open-questions") {
+      setTimeout(() => {
+        const el = document.getElementById("open-questions");
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+          setHighlightOpen(true);
+          setTimeout(() => setHighlightOpen(false), 2400);
+        }
+      }, 200);
+    }
+  }, [location.hash, noNum]);
 
   if (!conference) {
     return (
@@ -78,7 +93,7 @@ export default function Conference() {
         {conference.type === "manifesto" ? (
           <ManifestoSheet c={conference} />
         ) : (
-          <SessionSheet c={conference} navigate={navigate} />
+          <SessionSheet c={conference} navigate={navigate} highlightOpen={highlightOpen} />
         )}
         <PrevNext prev={prev} next={next} navigate={navigate} />
         <FooterMeta c={conference} />
@@ -138,7 +153,7 @@ function Sheet({ children }) {
   );
 }
 
-function SessionSheet({ c, navigate }) {
+function SessionSheet({ c, navigate, highlightOpen }) {
   const isPlaceholder = c.isPlaceholder;
   return (
     <Sheet>
@@ -192,18 +207,30 @@ function SessionSheet({ c, navigate }) {
         )}
       </Section>
 
-      <Section
-        title="§ Open Questions"
-        sub="— carried to next conference"
+      <div
+        id="open-questions"
+        style={{
+          scrollMarginTop: "20px",
+          padding: highlightOpen ? "8px" : 0,
+          margin: highlightOpen ? "-8px" : 0,
+          borderRadius: "2px",
+          background: highlightOpen ? "rgba(200, 148, 29, 0.12)" : "transparent",
+          transition: "background 1s ease, padding 0.3s ease, margin 0.3s ease"
+        }}
       >
-        {c.openQuestions && c.openQuestions.length > 0 ? (
-          c.openQuestions.map((q, i) => (
-            <OpenQuestion key={i} q={q} navigate={navigate} />
-          ))
-        ) : (
-          <Empty>미해결 질문이 발의되면 여기 superposition으로 남습니다.</Empty>
-        )}
-      </Section>
+        <Section
+          title="§ Open Questions"
+          sub="— carried to next conference"
+        >
+          {c.openQuestions && c.openQuestions.length > 0 ? (
+            c.openQuestions.map((q, i) => (
+              <OpenQuestion key={i} q={q} navigate={navigate} />
+            ))
+          ) : (
+            <Empty>미해결 질문이 발의되면 여기 superposition으로 남습니다.</Empty>
+          )}
+        </Section>
+      </div>
     </Sheet>
   );
 }

@@ -6,6 +6,7 @@ import Book from "./layers/Book.jsx";
 import Reflection from "./layers/Reflection.jsx";
 import Conferences from "./layers/Conferences.jsx";
 import Conference from "./layers/Conference.jsx";
+import Questions from "./layers/Questions.jsx";
 
 export default function App() {
   const location = useLocation();
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/book/:id/reflection/:refId" element={<Reflection />} />
         <Route path="/conferences" element={<Conferences />} />
         <Route path="/conference/:no" element={<Conference />} />
+        <Route path="/questions" element={<Questions />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </AnimatePresence>
