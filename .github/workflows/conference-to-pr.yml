@@ -1,0 +1,199 @@
+name: 📋 Conference 이슈 → PR 자동 생성
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  create-conference-pr:
+    if: contains(github.event.issue.labels.*.name, 'conference')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Parse issue and update conferences.json
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue = context.payload.issue;
+            const body = issue.body || "";
+
+            // ── 이슈 폼 파싱 헬퍼 ──────────────────────────
+            function getField(label) {
+              const re = new RegExp(`### ${label}\\s*\\n+([\\s\\S]*?)(?=\\n### |$)`, "m");
+              const m = body.match(re);
+              return m ? m[1].trim() : "";
+            }
+
+            function parseChecked(label) {
+              const block = getField(label);
+              return block
+                .split("\n")
+                .filter(l => l.includes("- [x]") || l.includes("- [X]"))
+                .map(l => l.replace(/- \[x\]/i, "").trim());
+            }
+
+            function parsePipes(label) {
+              const block = getField(label);
+              return block
+                .split("\n")
+                .map(l => l.trim())
+                .filter(l => l && !l.startsWith("_"))
+                .map(l => l.split("|").map(s => s.trim()));
+            }
+
+            // ── 필드 추출 ───────────────────────────────────
+            const no         = parseInt(getField("회차 번호"), 10);
+            const date       = getField("날짜");
+            const host       = getField("주최자");
+            const topic      = getField("주제");
+            const synthesis  = getField("Synthesis");
+            const attendees  = parseChecked("참석자");
+            const absent     = parseChecked("결석자");
+
+            const presentations = parsePipes("발표 목록")
+              .filter(r => r.length >= 2 && r[0])
+              .map(([by, title, url]) => ({
+                by,
+                title: title || "",
+                ...(url ? { url } : {})
+              }));
+
+            const openQuestions = parsePipes("Open Questions")
+              .filter(r => r.length >= 1 && r[0])
+              .map(([question, raisedBy, status]) => ({
+                question,
+                raisedBy: raisedBy || "",
+                status: status === "collapsed" ? "collapsed" : "superposition"
+              }));
+
+            // ── 유효성 검사 ──────────────────────────────────
+            if (isNaN(no) || !date || !topic || !host) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: [
+                  "❌ **파싱 오류** — 필수 필드가 비어있습니다.",
+                  "",
+                  `- 회차 번호: \`${no}\``,
+                  `- 날짜: \`${date}\``,
+                  `- 주최자: \`${host}\``,
+                  `- 주제: \`${topic || "(비어있음)"}\``,
+                  "",
+                  "이슈를 수정한 뒤 저장하면 자동으로 재시도됩니다."
+                ].join("\n")
+              });
+              core.setFailed("필수 필드 누락");
+              return;
+            }
+
+            // ── conferences.json 읽기 ────────────────────────
+            const fs = require("fs");
+            const raw = fs.readFileSync("src/data/conferences.json", "utf8");
+            const json = JSON.parse(raw);
+
+            const newEntry = {
+              no,
+              type: "session",
+              date,
+              host,
+              topic,
+              attendees,
+              absent,
+              synthesis,
+              presentations,
+              openQuestions
+            };
+
+            // 같은 회차가 있으면 교체, 없으면 추가
+            const idx = json.conferences.findIndex(c => c.no === no);
+            if (idx >= 0) {
+              json.conferences[idx] = newEntry;
+            } else {
+              json.conferences.push(newEntry);
+            }
+
+            // 번호 순 정렬
+            json.conferences.sort((a, b) => a.no - b.no);
+
+            fs.writeFileSync(
+              "src/data/conferences.json",
+              JSON.stringify(json, null, 2) + "\n"
+            );
+
+            // ── 브랜치 + 커밋 + PR ───────────────────────────
+            const branchName = `conference/no-${no}-${Date.now()}`;
+
+            // git 설정
+            await exec.exec("git", ["config", "user.name", "github-actions[bot]"]);
+            await exec.exec("git", ["config", "user.email", "github-actions[bot]@users.noreply.github.com"]);
+
+            // 브랜치 생성 + 커밋 + 푸시
+            await exec.exec("git", ["checkout", "-b", branchName]);
+            await exec.exec("git", ["add", "src/data/conferences.json"]);
+            await exec.exec("git", ["commit", "-m",
+              `feat: Conference No.${no} 회의록 추가 (${date})`
+            ]);
+            await exec.exec("git", ["push", "origin", branchName]);
+
+            // PR 본문 생성
+            const prBody = [
+              `## 📋 Conference No.${no} 회의록`,
+              "",
+              `> 이슈 [#${issue.number}](${issue.html_url}) 에서 자동 생성됨`,
+              "",
+              `| 항목 | 내용 |`,
+              `|---|---|`,
+              `| 날짜 | ${date} |`,
+              `| 주최자 | ${host} |`,
+              `| 주제 | ${topic} |`,
+              `| 참석자 | ${attendees.join(", ") || "—"} |`,
+              `| 결석자 | ${absent.join(", ") || "없음"} |`,
+              "",
+              `### Synthesis`,
+              synthesis,
+              "",
+              presentations.length > 0
+                ? ["### 발표", ...presentations.map(p => `- **${p.by}** — ${p.title}${p.url ? ` ([링크](${p.url}))` : ""}`)].join("\n")
+                : "",
+              "",
+              openQuestions.length > 0
+                ? ["### Open Questions", ...openQuestions.map(q => `- ⊙ ${q.question} (${q.raisedBy}, *${q.status}*)`)].join("\n")
+                : "",
+              "",
+              "---",
+              "*Merge하면 사이트에 자동 반영됩니다.*"
+            ].filter(l => l !== null).join("\n");
+
+            // PR 생성
+            const pr = await github.rest.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `feat: Conference No.${no} — ${topic}`,
+              head: branchName,
+              base: "main",
+              body: prBody
+            });
+
+            // 이슈에 PR 링크 코멘트
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              body: [
+                `✅ **PR이 자동 생성되었습니다** → ${pr.data.html_url}`,
+                "",
+                `Conference No.${no} 회의록이 \`src/data/conferences.json\`에 반영됩니다.`,
+                "PR을 리뷰한 뒤 Merge하면 사이트에 자동 배포됩니다."
+              ].join("\n")
+            });
+
+            core.info(`PR created: ${pr.data.html_url}`);

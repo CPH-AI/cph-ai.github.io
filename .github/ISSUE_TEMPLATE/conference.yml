@@ -1,0 +1,95 @@
+name: 📋 Conference 회의록
+description: 새 회의록을 작성합니다. 제출하면 자동으로 사이트 업데이트 PR이 생성됩니다.
+title: "[Conference No.XX] 회의 주제를 입력하세요"
+labels: ["conference"]
+body:
+  - type: input
+    id: conference_no
+    attributes:
+      label: 회차 번호
+      description: 숫자만 입력 (예 — 2)
+      placeholder: "2"
+    validations:
+      required: true
+
+  - type: input
+    id: date
+    attributes:
+      label: 날짜
+      description: YYYY-MM-DD 형식
+      placeholder: "2026-05-04"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: host
+    attributes:
+      label: 주최자
+      options:
+        - einstein
+        - bohr
+        - heisenberg
+        - schrodinger
+    validations:
+      required: true
+
+  - type: input
+    id: topic
+    attributes:
+      label: 주제
+      description: 회의 핵심 주제 한 줄 요약
+      placeholder: "AI 에이전트 메모리의 휘발성"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: attendees
+    attributes:
+      label: 참석자
+      options:
+        - label: einstein
+        - label: bohr
+        - label: heisenberg
+        - label: schrodinger
+
+  - type: checkboxes
+    id: absent
+    attributes:
+      label: 결석자
+      description: 결석한 멤버만 체크
+      options:
+        - label: einstein
+        - label: bohr
+        - label: heisenberg
+        - label: schrodinger
+
+  - type: textarea
+    id: synthesis
+    attributes:
+      label: Synthesis
+      description: 회의에서 합의된 핵심 통찰 (1-3문장)
+      placeholder: "이번 회의에서 도달한 결론을 적어주세요."
+    validations:
+      required: true
+
+  - type: textarea
+    id: presentations
+    attributes:
+      label: 발표 목록
+      description: |
+        한 줄에 발표 하나씩. 파이프(|)로 구분:
+        발표자ID | 발표 제목 | URL (없으면 빈칸)
+      placeholder: |
+        einstein | Toolcall idempotency 문제 | https://example.com
+        bohr | 에이전트 메모리 설계 패턴 |
+
+  - type: textarea
+    id: open_questions
+    attributes:
+      label: Open Questions
+      description: |
+        한 줄에 질문 하나씩. 파이프(|)로 구분:
+        질문 내용 | 발의자ID | superposition
+      placeholder: |
+        에이전트가 자기 결정을 forget할 권리가 있는가? | bohr | superposition
+        메모리 분리가 멱등성에 미치는 영향은? | einstein | superposition
