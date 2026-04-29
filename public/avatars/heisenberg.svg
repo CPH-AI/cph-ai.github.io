@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="Werner Heisenberg">
+  <rect width="240" height="240" fill="#ece6d6"/>
+
+  <!-- Δx · Δp ≥ ℏ/2 formula (top-right) -->
+  <g transform="translate(204 42)" fill="#1a1a1a" font-family="Georgia, 'Times New Roman', serif" font-style="italic" text-anchor="middle">
+    <text font-size="11" letter-spacing="0.5">Δx · Δp</text>
+    <text y="14" font-size="11" letter-spacing="0.5">≥ ℏ/2</text>
+  </g>
+
+  <!-- Uncertainty ghost RIGHT (with hat) -->
+  <g opacity="0.28" transform="translate(9 5)">
+    <path d="M 80 90 Q 80 50 122 45 Q 164 50 164 90 Z" fill="#1a1a1a"/>
+    <ellipse cx="122" cy="92" rx="64" ry="9" fill="#1a1a1a"/>
+    <ellipse cx="122" cy="135" rx="38" ry="46" fill="#1a1a1a"/>
+    <path d="M 48 240 L 68 205 L 90 193 L 122 202 L 154 193 L 176 205 L 196 240 Z" fill="#1a1a1a"/>
+  </g>
+
+  <!-- Uncertainty ghost LEFT (with hat) -->
+  <g opacity="0.28" transform="translate(-9 5)">
+    <path d="M 80 90 Q 80 50 122 45 Q 164 50 164 90 Z" fill="#1a1a1a"/>
+    <ellipse cx="122" cy="92" rx="64" ry="9" fill="#1a1a1a"/>
+    <ellipse cx="122" cy="135" rx="38" ry="46" fill="#1a1a1a"/>
+    <path d="M 48 240 L 68 205 L 90 193 L 122 202 L 154 193 L 176 205 L 196 240 Z" fill="#1a1a1a"/>
+  </g>
+
+  <!-- Real (sharp) -->
+  <!-- Fedora crown -->
+  <path d="M 80 90 Q 80 50 122 45 Q 164 50 164 90 Z" fill="#1a1a1a"/>
+  <!-- Crown pinch (signature fedora dent) -->
+  <path d="M 110 60 Q 122 55 134 60" stroke="#ece6d6" stroke-width="1.6" fill="none" opacity="0.5"/>
+  <!-- Hat band -->
+  <path d="M 80 84 Q 122 81 164 84" stroke="#ece6d6" stroke-width="2.2" fill="none" opacity="0.45"/>
+  <!-- Hat brim -->
+  <ellipse cx="122" cy="92" rx="64" ry="9" fill="#1a1a1a"/>
+
+  <!-- Face -->
+  <ellipse cx="122" cy="135" rx="38" ry="46" fill="#ece6d6" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Eyebrows (relaxed, slightly arched) -->
+  <path d="M 100 132 Q 110 130 118 133" stroke="#1a1a1a" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M 126 133 Q 134 130 144 132" stroke="#1a1a1a" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+  <!-- Eyes -->
+  <ellipse cx="106" cy="140" rx="2.2" ry="1.8" fill="#1a1a1a"/>
+  <ellipse cx="138" cy="140" rx="2.2" ry="1.8" fill="#1a1a1a"/>
+
+  <!-- Nose -->
+  <path d="M 122 148 Q 120 160 116 165 Q 120 168 124 166" stroke="#1a1a1a" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+
+  <!-- Mouth (smile - signature young Heisenberg in the photo) -->
+  <path d="M 108 178 Q 122 186 136 178" stroke="#1a1a1a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+
+  <!-- Suit shoulders -->
+  <path d="M 48 240 L 68 205 L 90 193 L 122 202 L 154 193 L 176 205 L 196 240 Z" fill="#1a1a1a"/>
+
+  <!-- Shirt V -->
+  <path d="M 108 200 L 122 224 L 136 200 L 128 195 L 122 200 L 116 195 Z" fill="#ece6d6"/>
+  <!-- Tie -->
+  <path d="M 118 202 L 122 222 L 126 202 L 122 199 Z" fill="#1a1a1a"/>
+</svg>

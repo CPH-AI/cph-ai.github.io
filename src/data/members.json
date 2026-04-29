@@ -1,0 +1,109 @@
+{
+  "books": [
+    {
+      "id": "einstein",
+      "vol": "I",
+      "physicist": "Einstein",
+      "role": "The Skeptic",
+      "handle": "e9ua1",
+      "displayName": "IQ",
+      "avatar": "avatars/einstein.svg",
+      "coverColor": "#5a3a2a",
+      "sigil": "신은 주사위를 던지지 않는다.",
+      "subSigil": "납득될 때까지 토 다는 사람.",
+      "reflections": [
+        {
+          "title": "Conference No. 1 회고",
+          "url": "https://iq-proof.github.io",
+          "date": "2025-11-02"
+        }
+      ],
+      "experiments": [
+        {
+          "name": "iq-blogger",
+          "desc": "folder synthesis pipeline",
+          "url": "https://github.com/IQ-Dev-Lab/iq-blogger",
+          "status": "live"
+        },
+        {
+          "name": "iq-dev-lab",
+          "desc": "deep-dive ×25 repos",
+          "url": "https://github.com/IQ-Dev-Lab",
+          "status": "live"
+        },
+        {
+          "name": "iq-ai-lab",
+          "desc": "AI utilization research",
+          "url": "https://github.com/IQ-AI-Lab",
+          "status": "live"
+        },
+        {
+          "name": "see-why",
+          "desc": "math · CS visualization",
+          "url": "https://www.youtube.com/@SeeWhy-l3n",
+          "status": "superposition"
+        }
+      ],
+      "wherefrom": [
+        { "label": "github", "url": "https://github.com/e9ua1" },
+        { "label": "blog", "url": "https://iq-proof.github.io" },
+        { "label": "see why", "url": "https://www.youtube.com/@SeeWhy-l3n" }
+      ]
+    },
+    {
+      "id": "bohr",
+      "vol": "II",
+      "physicist": "Bohr",
+      "role": "The Convener",
+      "handle": "Chocoding1",
+      "displayName": "Chocoding1",
+      "avatar": "avatars/bohr.svg",
+      "coverColor": "#3a4a3a",
+      "sigil": "관측이 곧 현실이다.",
+      "subSigil": "합의의 중심에서 흐름을 잡는 사람.",
+      "reflections": [],
+      "experiments": [],
+      "wherefrom": [
+        { "label": "github", "url": "https://github.com/Chocoding1" }
+      ]
+    },
+    {
+      "id": "heisenberg",
+      "vol": "III",
+      "physicist": "Heisenberg",
+      "role": "The Improviser",
+      "handle": "Jaeminjeong1",
+      "displayName": "Jeong Jaemin",
+      "avatar": "avatars/heisenberg.svg",
+      "coverColor": "#4a3a5a",
+      "sigil": "Δx · Δp ≥ ℏ/2",
+      "subSigil": "확정 짓기 전에 일단 부딪쳐보는 사람.",
+      "reflections": [],
+      "experiments": [],
+      "wherefrom": [
+        { "label": "github", "url": "https://github.com/Jaeminjeong1" }
+      ]
+    },
+    {
+      "id": "schrodinger",
+      "vol": "IV",
+      "physicist": "Schrödinger",
+      "role": "The Polymath",
+      "handle": "JohnPrk",
+      "displayName": "박민욱",
+      "avatar": "avatars/schrodinger.svg",
+      "coverColor": "#5a3030",
+      "sigil": "관측 전까지 고양이는 두 상태에 있다.",
+      "subSigil": "상태를 동시에 여러 개 굴리는 사람.",
+      "reflections": [],
+      "experiments": [],
+      "wherefrom": [
+        { "label": "github", "url": "https://github.com/JohnPrk" }
+      ]
+    }
+  ],
+  "site": {
+    "conferenceNumber": 4,
+    "nextConferenceInDays": 4
+  }
+}
