@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="Copenhagen AI">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="80%">
+      <stop offset="0%" stop-color="#1a1f2e"/>
+      <stop offset="100%" stop-color="#0a0e1a"/>
+    </radialGradient>
+    <radialGradient id="nGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff6b35" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="#ff6b35" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="eGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#58a6ff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#58a6ff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+
+  <g transform="translate(512 512)">
+    <ellipse rx="380" ry="125" fill="none" stroke="#58a6ff" stroke-width="3" opacity="0.45" transform="rotate(28)"/>
+    <ellipse rx="380" ry="125" fill="none" stroke="#58a6ff" stroke-width="3" opacity="0.45" transform="rotate(-28)"/>
+
+    <path d="M 0 -200 L 200 0 L 0 200 L -200 0 Z" fill="none" stroke="#58a6ff" stroke-width="4.5" opacity="0.85"/>
+
+    <g stroke="#58a6ff" stroke-width="2.6" opacity="0.55" stroke-dasharray="11 11">
+      <line x1="0" y1="0" x2="0" y2="-200"/>
+      <line x1="0" y1="0" x2="200" y2="0"/>
+      <line x1="0" y1="0" x2="0" y2="200"/>
+      <line x1="0" y1="0" x2="-200" y2="0"/>
+    </g>
+
+    <g fill="url(#eGlow)">
+      <circle cx="0" cy="-200" r="60"/>
+      <circle cx="200" cy="0" r="60"/>
+      <circle cx="0" cy="200" r="60"/>
+      <circle cx="-200" cy="0" r="60"/>
+    </g>
+
+    <g fill="#58a6ff">
+      <circle cx="0" cy="-200" r="22"/>
+      <circle cx="200" cy="0" r="22"/>
+      <circle cx="0" cy="200" r="22"/>
+      <circle cx="-200" cy="0" r="22"/>
+    </g>
+
+    <circle r="135" fill="url(#nGlow)"/>
+    <circle r="26" fill="#ff6b35"/>
+  </g>
+</svg>
