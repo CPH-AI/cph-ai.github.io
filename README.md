@@ -94,24 +94,33 @@ npm run dev
 
 ## 배포 방법
 
-```bash
-npm run deploy
+### 자동 배포 (기본)
+
+`main` 브랜치에 push가 생기면 GitHub Actions가 자동으로 빌드 + 배포합니다.
+**아무것도 할 필요 없습니다.** PR Merge = 사이트 반영.
+
+```
+PR Merge (또는 직접 push)
+        ↓ 자동 실행
+GitHub Actions — 빌드 + gh-pages 배포
+        ↓ 약 1–2분
+https://cph-ai.github.io 반영 완료
 ```
 
-이 명령어 하나로:
-1. Vite 프로덕션 빌드 (`npm run build`)
-2. `dist/` 를 `gh-pages` 브랜치로 자동 push
-3. GitHub Pages가 약 1–2분 내에 `https://cph-ai.github.io` 에 반영
+Actions 진행 상황은 레포 상단 **Actions 탭**에서 확인할 수 있습니다.
 
-> **코드/데이터 변경 후 워크플로우**
-> ```bash
-> git add .
-> git commit -m "내용 요약"
-> git push           # main 브랜치에 소스 저장
-> npm run deploy     # gh-pages 브랜치에 빌드 결과 배포
-> ```
-> `git push` 와 `npm run deploy` 는 별도 단계입니다.
-> `git push` 만 하면 소스는 저장되지만 사이트는 갱신되지 않습니다.
+### 수동 배포 (로컬 긴급 수정 시)
+
+로컬에서 직접 수정하고 즉시 배포가 필요할 때만 사용합니다.
+
+```bash
+git add .
+git commit -m "내용 요약"
+git push           # main에 push → 위 자동 배포 트리거됨
+```
+
+`npm run deploy` 는 더 이상 직접 실행할 필요 없습니다.
+`git push` 만 하면 Actions가 알아서 배포합니다.
 
 ---
 
@@ -130,13 +139,15 @@ npm run deploy
 2. "📋 Conference 회의록" 템플릿 선택
 3. 폼 작성 후 Submit
         ↓ 자동으로 진행됨
-4. GitHub Actions가 실행
+4. GitHub Actions가 이슈를 파싱
 5. conferences.json 업데이트 브랜치 자동 생성
 6. PR 자동 오픈 (내용 요약 포함)
 7. 이슈에 PR 링크 코멘트 자동 등록
         ↓ 팀원이 리뷰 후
 8. PR Merge
-9. npm run deploy 실행 → 사이트 반영
+        ↓ 자동으로 진행됨
+9. GitHub Actions 빌드 + 배포
+10. 약 1–2분 후 사이트 반영 완료
 ```
 
 #### 이슈 폼 작성 가이드
