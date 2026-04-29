@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useMemo } from "react";
 import data from "../data/members.json";
+import conferences from "../data/conferences.json";
 
 export default function Book() {
   const navigate = useNavigate();
@@ -82,7 +83,7 @@ function BookSpread({ book, prevBook, nextBook, navigate, baseUrl }) {
         }}
       >
         <Frontispiece book={book} baseUrl={baseUrl} />
-        <Bookplate book={book} />
+        <Bookplate book={book} navigate={navigate} />
       </div>
     </div>
   );
@@ -185,7 +186,11 @@ function Frontispiece({ book, baseUrl }) {
   );
 }
 
-function Bookplate({ book }) {
+function Bookplate({ book, navigate }) {
+  const attended = conferences.conferences.filter(
+    (c) => c.type === "session" && (c.attendees || []).includes(book.id)
+  );
+
   return (
     <div
       style={{
@@ -206,23 +211,80 @@ function Bookplate({ book }) {
 
       <Section title="§ Reflections">
         {book.reflections.length > 0 ? (
-          book.reflections.map((r, i) => (
-            <a
-              key={i}
-              href={r.url}
-              target="_blank"
-              rel="noreferrer"
-              style={{ display: "block", padding: "8px 0", borderBottom: "0.5px dashed rgba(26,20,16,0.15)" }}
-            >
-              <div style={{ fontFamily: "var(--serif)", fontSize: "12px" }}>— {r.title}</div>
-              <div style={{ fontFamily: "var(--mono)", fontSize: "8px", opacity: 0.5, letterSpacing: "0.1em", marginTop: "2px" }}>
-                {r.date}   ·   ↗
-              </div>
-            </a>
-          ))
+          book.reflections.map((r, i) => {
+            const inner = (
+              <>
+                <div style={{ fontFamily: "var(--serif)", fontSize: "12px" }}>— {r.title}</div>
+                <div style={{ fontFamily: "var(--mono)", fontSize: "8px", opacity: 0.5, letterSpacing: "0.1em", marginTop: "2px" }}>
+                  {r.date}   ·   {r.internal ? "↪" : "↗"}
+                </div>
+              </>
+            );
+            const baseStyle = { display: "block", padding: "8px 0", borderBottom: "0.5px dashed rgba(26,20,16,0.15)", textAlign: "left", width: "100%", background: "none", border: "none", borderBottom: "0.5px dashed rgba(26,20,16,0.15)", cursor: "pointer", color: "#1a1410" };
+            if (r.internal) {
+              return (
+                <button
+                  key={r.id || i}
+                  onClick={() => navigate(`/book/${book.id}/reflection/${r.id}`)}
+                  style={baseStyle}
+                >
+                  {inner}
+                </button>
+              );
+            }
+            return (
+              <a
+                key={r.id || i}
+                href={r.url}
+                target="_blank"
+                rel="noreferrer"
+                style={{ display: "block", padding: "8px 0", borderBottom: "0.5px dashed rgba(26,20,16,0.15)", color: "#1a1410" }}
+              >
+                {inner}
+              </a>
+            );
+          })
         ) : (
           <div style={{ fontFamily: "var(--serif)", fontStyle: "italic", fontSize: "12px", opacity: 0.45, padding: "8px 0" }}>
             — 첫 회고를 기다리는 중…
+          </div>
+        )}
+      </Section>
+
+      <Section title="§ Conferences">
+        {attended.length > 0 ? (
+          attended.map((c) => (
+            <button
+              key={c.no}
+              onClick={() => navigate(`/conference/${c.no}`)}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "auto 1fr auto",
+                gap: "10px",
+                width: "100%",
+                padding: "6px 0",
+                background: "none",
+                border: "none",
+                textAlign: "left",
+                cursor: "pointer",
+                color: "#1a1410",
+                borderBottom: "0.5px dashed rgba(26,20,16,0.12)"
+              }}
+            >
+              <span style={{ fontFamily: "var(--mono)", fontSize: "9px", letterSpacing: "0.2em", opacity: 0.55 }}>
+                No.{c.no}
+              </span>
+              <span style={{ fontFamily: "var(--serif)", fontSize: "11px", fontStyle: "italic", opacity: 0.7, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                {c.topic}
+              </span>
+              <span style={{ fontFamily: "var(--mono)", fontSize: "8px", opacity: 0.45 }}>
+                {c.date}
+              </span>
+            </button>
+          ))
+        ) : (
+          <div style={{ fontFamily: "var(--serif)", fontStyle: "italic", fontSize: "12px", opacity: 0.45, padding: "8px 0" }}>
+            — 첫 회의 참석을 기다리는 중…
           </div>
         )}
       </Section>

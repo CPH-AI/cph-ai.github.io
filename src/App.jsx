@@ -3,6 +3,9 @@ import { AnimatePresence } from "framer-motion";
 import Arrival from "./layers/Arrival.jsx";
 import Study from "./layers/Study.jsx";
 import Book from "./layers/Book.jsx";
+import Reflection from "./layers/Reflection.jsx";
+import Conferences from "./layers/Conferences.jsx";
+import Conference from "./layers/Conference.jsx";
 
 export default function App() {
   const location = useLocation();
@@ -13,6 +16,9 @@ export default function App() {
         <Route path="/" element={<Arrival />} />
         <Route path="/study" element={<Study />} />
         <Route path="/book/:id" element={<Book />} />
+        <Route path="/book/:id/reflection/:refId" element={<Reflection />} />
+        <Route path="/conferences" element={<Conferences />} />
+        <Route path="/conference/:no" element={<Conference />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </AnimatePresence>

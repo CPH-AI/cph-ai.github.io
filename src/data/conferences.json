@@ -1,0 +1,31 @@
+{
+  "conferences": [
+    {
+      "no": 0,
+      "type": "manifesto",
+      "date": null,
+      "title": "회의 이전의 회의",
+      "subtitle": "the founding manifesto",
+      "body": [
+        "1927년 10월, 브뤼셀.",
+        "29명의 물리학자가 한 사진 속에 모여 양자역학의 토대를 다시 그렸다. 그들은 답을 내러 간 것이 아니라 더 정확한 질문을 던지러 간 것이었다.",
+        "100년이 지나, 우리는 또 다른 경계에 서 있다. AI는 도구를 넘어 공동 창작자가 되어가고 있고, 그 활용의 정점이 무엇인지는 아직 누구도 모른다.",
+        "Copenhagen AI는 그 답을 찾으려 하지 않는다. 대신, 매주 한 번 모여 가능성을 관측한다.",
+        "코드를 짠다. 부서뜨린다. 다시 짠다. 파동함수가 붕괴하듯, 이론은 실행에서 비로소 형태를 갖는다.",
+        "이 archive는 그 관측의 기록이다."
+      ]
+    },
+    {
+      "no": 1,
+      "type": "session",
+      "date": "2025-11-02",
+      "topic": "회의의 첫 의제는 첫 회의에서 정해진다",
+      "attendees": [],
+      "absent": [],
+      "synthesis": "",
+      "presentations": [],
+      "openQuestions": [],
+      "isPlaceholder": true
+    }
+  ]
+}
