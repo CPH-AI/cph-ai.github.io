@@ -168,30 +168,34 @@ export default function Study() {
           </text>
           <line x1="-64" y1="-82" x2="64" y2="-82" stroke="#c8941d" strokeWidth="0.4" opacity="0.4" />
 
-          {visibleQuestions.map((q, i) => (
-            <motion.g
-              key={`${q.conferenceNo}-${q.idx}`}
-              transform={`translate(0 ${-56 + i * 46})`}
-              style={{ cursor: "pointer" }}
-              onClick={() => navigate(`/conference/${q.conferenceNo}#open-questions`)}
-              role="button"
-              aria-label={`Question raised by ${q.raisedByName}`}
-              whileHover={{ y: -56 + i * 46 - 2 }}
-              transition={{ duration: 0.2 }}
-            >
-              <rect x="-62" y="-12" width="124" height="34" fill="#ece6d6" opacity="0.85" stroke="#c8941d" strokeWidth="0.4" strokeDasharray="2 2" />
-              <text x="-54" y="-2" fontFamily="'SF Mono', Consolas, monospace" fontSize="6" fill="#1a1410" opacity="0.55" letterSpacing="0.15em">
-                No.{q.conferenceNo} · {q.raisedByName}
-              </text>
-              <text x="-54" y="9" fontFamily="Georgia, serif" fontStyle="italic" fontSize="8" fill="#1a1410">
-                ⊙ {compressQuestion(q.question)}
-              </text>
-              <text x="-54" y="19" fontFamily="Georgia, serif" fontStyle="italic" fontSize="7" fill="#1a1410" opacity="0.55">
-                superposition
-              </text>
-              <circle cx="56" cy="-8" r="2" fill="#c8941d" opacity="0.7" />
-            </motion.g>
-          ))}
+          {visibleQuestions.map((q, i) => {
+            const baseY = -56 + i * 46;
+            return (
+              <motion.g
+                key={`${q.conferenceNo}-${q.idx}`}
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate(`/conference/${q.conferenceNo}#open-questions`)}
+                role="button"
+                aria-label={`Question raised by ${q.raisedByName}`}
+                initial={{ y: baseY }}
+                animate={{ y: baseY }}
+                whileHover={{ y: baseY - 3 }}
+                transition={{ duration: 0.2 }}
+              >
+                <rect x="-62" y="-12" width="124" height="34" fill="#ece6d6" opacity="0.85" stroke="#c8941d" strokeWidth="0.4" strokeDasharray="2 2" />
+                <text x="-54" y="-2" fontFamily="'SF Mono', Consolas, monospace" fontSize="6" fill="#1a1410" opacity="0.55" letterSpacing="0.15em">
+                  No.{q.conferenceNo} · {q.raisedByName}
+                </text>
+                <text x="-54" y="9" fontFamily="Georgia, serif" fontStyle="italic" fontSize="8" fill="#1a1410">
+                  ⊙ {compressQuestion(q.question)}
+                </text>
+                <text x="-54" y="19" fontFamily="Georgia, serif" fontStyle="italic" fontSize="7" fill="#1a1410" opacity="0.55">
+                  superposition
+                </text>
+                <circle cx="56" cy="-8" r="2" fill="#c8941d" opacity="0.7" />
+              </motion.g>
+            );
+          })}
 
           {visibleQuestions.length === 0 && (
             <g transform="translate(0 0)">
