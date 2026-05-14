@@ -58,6 +58,8 @@ export function SolvayBackdrop({ variant = "arrival" }) {
         className="solvay-backdrop__image"
         src={`${baseUrl}assets/solvay-conference-room.webp`}
         alt=""
+        decoding="sync"
+        fetchPriority="high"
         draggable="false"
       />
       <div className="solvay-backdrop__wash" />

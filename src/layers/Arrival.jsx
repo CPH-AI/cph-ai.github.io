@@ -43,12 +43,7 @@ export default function Arrival() {
         <EquationVeil />
         <QuantumDust />
 
-        <motion.div
-          className="arrival-stage-object"
-          initial={{ opacity: 0, y: 28, rotateX: 8 }}
-          animate={{ opacity: 1, y: 0, rotateX: 0 }}
-          transition={{ delay: 0.12, duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-        >
+        <div className="arrival-stage-object">
           <svg
             className="arrival-portal"
             viewBox="0 0 1000 600"
@@ -160,7 +155,7 @@ export default function Arrival() {
               <span>ENTER THE CONFERENCE</span>
             </motion.button>
           </div>
-        </motion.div>
+        </div>
       </DepthScene>
     </motion.div>
   );

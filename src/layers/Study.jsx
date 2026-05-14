@@ -106,7 +106,6 @@ export default function Study() {
         openQuestions={openQuestions}
         experiments={data.books[0].experiments}
         conferenceNumber={data.site.conferenceNumber}
-        nextConferenceDays={data.site.nextConferenceInDays}
       />
     );
   }
@@ -228,14 +227,11 @@ export default function Study() {
           <path d="M 180 124 L 180 420" stroke="#c8941d" strokeWidth="0.7" opacity="0.35" />
           <path d="M 820 124 L 820 420" stroke="#c8941d" strokeWidth="0.7" opacity="0.35" />
         </g>
-        <g transform="translate(500 112)" textAnchor="middle">
-          <rect x="-176" y="-22" width="352" height="34" fill="#120b07" stroke="#c8941d" strokeWidth="0.6" opacity="0.82" />
-          <text y="-8" fontFamily="'SF Mono', Consolas, monospace" fontSize="7" letterSpacing="0.42em" fill="#c8941d" opacity="0.78">
-            COPENHAGEN AI COUNCIL
-          </text>
-          <text y="6" fontFamily="Georgia, serif" fontStyle="italic" fontSize="9" fill="#ece6d6" opacity="0.52">
-            weekly observation chamber
-          </text>
+        <g transform="translate(500 112)" opacity="0.5">
+          <rect x="-176" y="-22" width="352" height="34" fill="#120b07" stroke="#c8941d" strokeWidth="0.6" />
+          <path d="M -128 -5 L -34 -5 M 34 -5 L 128 -5" stroke="#c8941d" strokeWidth="0.5" opacity="0.8" />
+          <circle cx="-16" cy="-5" r="2" fill="#c8941d" opacity="0.72" />
+          <circle cx="16" cy="-5" r="2" fill="#c8941d" opacity="0.72" />
         </g>
         <rect x="0" y="430" width="1000" height="170" fill="url(#floor)" />
         <rect x="0" y="425" width="1000" height="6" fill="#3a2a1a" />
@@ -269,9 +265,6 @@ export default function Study() {
               <line x1="0" y1="42" x2="0" y2="56" stroke="#c8941d" strokeWidth="0.5" opacity="0.28" />
             </g>
           ))}
-          <text x="0" y="102" textAnchor="middle" fontFamily="'SF Mono', Consolas, monospace" fontSize="7" letterSpacing="0.34em" fill="#c8941d" opacity="0.58">
-            SOLVAY TABLE · LIVE OBSERVATION
-          </text>
         </g>
 
         <g transform="translate(85 270)">
@@ -449,12 +442,6 @@ export default function Study() {
             );
           })}
 
-          <text x="0" y="112" textAnchor="middle" fontFamily="'SF Mono', Consolas, monospace" fontSize="7" letterSpacing="0.36em" fill="#c8941d" opacity="0.58">
-            FOUR DELEGATE VOLUMES
-          </text>
-          <text x="0" y="126" textAnchor="middle" fontFamily="Georgia, serif" fontStyle="italic" fontSize="9" fill="#ece6d6" opacity="0.4">
-            select a chair at the council
-          </text>
         </g>
 
         <g transform="translate(920 270)">
@@ -508,24 +495,6 @@ export default function Study() {
           <path d="M -250 44 L 250 44" stroke="#5ba7d8" strokeWidth="0.5" strokeDasharray="7 10" opacity="0.28" />
         </g>
 
-        <g transform="translate(656 452)">
-          <text x="0" y="0" fontFamily="Georgia, serif" fontStyle="italic" fontSize="11" fill="#ece6d6" opacity="0.55">
-            Conference No. {String(data.site.conferenceNumber).padStart(2, "0")}
-          </text>
-          <motion.text
-            x="0"
-            y="20"
-            fontFamily="'SF Mono', Consolas, monospace"
-            fontSize="9"
-            letterSpacing="0.4em"
-            fill="#c8941d"
-            animate={{ opacity: [0.5, 0.85, 0.5] }}
-            transition={{ duration: 3, repeat: Infinity }}
-          >
-            IN  PROGRESS
-          </motion.text>
-        </g>
-
         <g transform="translate(500 348)">
           <motion.ellipse
             cx="0"
@@ -565,17 +534,14 @@ export default function Study() {
             <line x1="24" y1="10" x2="54" y2="-12" stroke="#c8941d" strokeWidth="0.7" opacity="0.72" />
 
             <g textAnchor="middle">
-              <text x="0" y="78" fontFamily="'SF Mono', Consolas, monospace" fontSize="8" letterSpacing="0.42em" fill="#c8941d" opacity="0.9">
-                VOL · 2025
-              </text>
-              <line x1="-64" y1="88" x2="64" y2="88" stroke="#c8941d" strokeWidth="0.55" opacity="0.56" />
-              <text x="0" y="110" fontFamily="Georgia, serif" fontWeight="700" fontSize="18" fill="#ece6d6" letterSpacing="0.04em">
+              <line x1="-64" y1="78" x2="64" y2="78" stroke="#c8941d" strokeWidth="0.55" opacity="0.56" />
+              <text x="0" y="102" fontFamily="Georgia, serif" fontWeight="700" fontSize="18" fill="#ece6d6" letterSpacing="0.04em">
                 CONFERENCE
               </text>
-              <text x="0" y="130" fontFamily="'SF Mono', Consolas, monospace" fontSize="9" letterSpacing="0.2em" fill="#f4c97a" opacity="0.85">
+              <text x="0" y="122" fontFamily="'SF Mono', Consolas, monospace" fontSize="9" letterSpacing="0.2em" fill="#f4c97a" opacity="0.85">
                 No. {String(data.site.conferenceNumber).padStart(2, "0")}
               </text>
-              <text x="0" y="148" fontFamily="Georgia, serif" fontStyle="italic" fontSize="10" fill="#ece6d6" opacity="0.56">
+              <text x="0" y="142" fontFamily="Georgia, serif" fontStyle="italic" fontSize="10" fill="#ece6d6" opacity="0.56">
                 open the archive
               </text>
             </g>
@@ -595,15 +561,6 @@ export default function Study() {
           <line x1="0" y1="0" x2="0" y2="-14" stroke="#1a1410" strokeWidth="1.4" strokeLinecap="round" />
           <line x1="0" y1="0" x2="9" y2="5" stroke="#1a1410" strokeWidth="1.6" strokeLinecap="round" />
           <circle r="1.6" fill="#1a1410" />
-          <text y="-42" textAnchor="middle" fontFamily="'SF Mono', Consolas, monospace" fontSize="7" letterSpacing="0.25em" fill="#c8941d" opacity="0.85">
-            NEXT  ·  in  {data.site.nextConferenceInDays}  days
-          </text>
-        </g>
-
-        <g fontFamily="'SF Mono', Consolas, monospace" fill="#ece6d6" opacity="0.45">
-          <text x="500" y="568" textAnchor="middle" fontSize="9" letterSpacing="0.35em">
-            THE  STUDY  ·  COPENHAGEN  AI
-          </text>
         </g>
 
         <g
@@ -626,7 +583,7 @@ export default function Study() {
   );
 }
 
-function MobileStudy({ navigate, openBook, openQuestions, experiments, conferenceNumber, nextConferenceDays }) {
+function MobileStudy({ navigate, openBook, openQuestions, experiments, conferenceNumber }) {
   const noStr = String(conferenceNumber).padStart(2, "0");
 
   return (
@@ -698,16 +655,6 @@ function MobileStudy({ navigate, openBook, openQuestions, experiments, conferenc
             </div>
             <div style={{ fontFamily: "var(--mono)", fontSize: "9px", letterSpacing: "0.24em", color: "var(--amber)", opacity: 0.86, marginTop: "8px" }}>
               No. {noStr}
-            </div>
-            <motion.div
-              animate={{ opacity: [0.5, 0.95, 0.5] }}
-              transition={{ duration: 3, repeat: Infinity }}
-              style={{ fontFamily: "var(--mono)", fontSize: "9px", letterSpacing: "0.34em", color: "var(--amber)", marginTop: "18px" }}
-            >
-              IN  PROGRESS
-            </motion.div>
-            <div style={{ fontFamily: "Georgia, serif", fontStyle: "italic", fontSize: "11px", color: "var(--parchment)", opacity: 0.48, marginTop: "8px" }}>
-              next observation in {nextConferenceDays} days
             </div>
           </div>
         </button>
@@ -836,9 +783,6 @@ function MobileStudy({ navigate, openBook, openQuestions, experiments, conferenc
           </div>
         </div>
 
-        <div style={{ textAlign: "center", marginTop: "32px", fontFamily: "var(--mono)", fontSize: "8px", letterSpacing: "0.3em", color: "var(--parchment)", opacity: 0.25 }}>
-          THE  STUDY  ·  COPENHAGEN  AI
-        </div>
       </div>
     </motion.div>
   );
