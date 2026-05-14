@@ -37,14 +37,14 @@ export default function Book() {
 
   return (
     <motion.div
-      className="archive-surface"
+      className="archive-surface book-root"
       initial={{ opacity: 0, scale: 0.92 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       style={{ width: "100%", height: "100%", background: "#1a1410", display: "flex", alignItems: "center", justifyContent: "center", overflow: "auto" }}
     >
-      <div style={{ width: "100%", maxWidth: "1100px", padding: "1rem" }}>
+      <div className="book-view" style={{ width: "100%", maxWidth: "1120px", padding: "1rem" }}>
         <Header book={book} navigate={navigate} />
         <BookSpread book={book} prevBook={prevBook} nextBook={nextBook} navigate={navigate} baseUrl={baseUrl} />
         <Footer book={book} />
@@ -55,35 +55,38 @@ export default function Book() {
 
 function Header({ book, navigate }) {
   return (
-    <div style={{ display: "flex", justifyContent: "space-between", padding: "0.5rem 1rem", fontFamily: "var(--mono)", fontSize: "9px", letterSpacing: "0.3em", opacity: 0.7 }}>
+    <div className="book-header" style={{ display: "flex", justifyContent: "space-between", padding: "0.5rem 1rem", fontFamily: "var(--mono)", fontSize: "9px", letterSpacing: "0.3em", opacity: 0.7 }}>
       <button onClick={() => navigate("/study")} style={{ color: "#c8941d", letterSpacing: "0.3em" }} aria-label="Back to study">
         ← THE STUDY
       </button>
-      <span style={{ color: "#ece6d6", opacity: 0.55 }}>VOL · {book.vol}  ·  ESC TO CLOSE</span>
+      <span className="book-header__meta" style={{ color: "#ece6d6", opacity: 0.55 }}>VOL · {book.vol}  ·  ESC TO CLOSE</span>
     </div>
   );
 }
 
 function BookSpread({ book, prevBook, nextBook, navigate, baseUrl }) {
   return (
-    <div style={{ position: "relative", margin: "1rem 0" }}>
+    <div className="book-stage" style={{ position: "relative", margin: "1rem 0" }}>
       <SideNav side="left" book={prevBook} navigate={navigate} />
       <SideNav side="right" book={nextBook} navigate={navigate} />
 
       <div
-        className="cinematic-panel"
+        className="book-spread cinematic-panel"
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
           gap: 0,
-          maxWidth: "880px",
+          maxWidth: "920px",
           margin: "0 auto",
           background: "#3a2a1f",
-          borderRadius: "4px",
-          padding: "10px",
+          borderRadius: "6px",
+          padding: "14px",
           position: "relative"
         }}
       >
+        <div className="book-spread__edge book-spread__edge--left" />
+        <div className="book-spread__edge book-spread__edge--right" />
+        <div className="book-spread__gutter" />
         <Frontispiece book={book} baseUrl={baseUrl} />
         <Bookplate book={book} navigate={navigate} />
       </div>
@@ -96,6 +99,7 @@ function SideNav({ side, book, navigate }) {
   const isLeft = side === "left";
   return (
     <button
+      className={`book-side-nav book-side-nav--${side}`}
       onClick={() => navigate(`/book/${book.id}`)}
       aria-label={`Go to ${book.physicist}`}
       style={{
@@ -111,6 +115,7 @@ function SideNav({ side, book, navigate }) {
       onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.7")}
     >
       <div
+        className="book-side-nav__mini"
         style={{
           width: "44px",
           height: "64px",
@@ -141,6 +146,7 @@ function SideNav({ side, book, navigate }) {
 function Frontispiece({ book, baseUrl }) {
   return (
     <div
+      className="book-page book-page--left frontispiece-page"
       style={{
         background: "linear-gradient(to right, #ece6d6 0%, #ece6d6 92%, #c8b89a 100%)",
         padding: "32px 48px",
@@ -157,11 +163,13 @@ function Frontispiece({ book, baseUrl }) {
       </div>
       <div style={{ width: "60px", height: "0.5px", background: "#c8941d", opacity: 0.5, marginBottom: "32px" }} />
 
-      <img
-        src={`${baseUrl}${book.avatar}`}
-        alt={book.physicist}
-        style={{ width: "180px", height: "180px", margin: "0 auto" }}
-      />
+      <div className="book-portrait">
+        <img
+          src={`${baseUrl}${book.avatar}`}
+          alt={book.physicist}
+          style={{ width: "180px", height: "180px", margin: "0 auto" }}
+        />
+      </div>
 
       <h1 style={{ fontFamily: "var(--serif)", fontSize: "34px", fontWeight: 700, letterSpacing: "0.05em", marginTop: "16px", color: "#1a1410" }}>
         {book.physicist.toUpperCase()}
@@ -195,6 +203,7 @@ function Bookplate({ book, navigate }) {
 
   return (
     <div
+      className="book-page book-page--right bookplate-page"
       style={{
         background: "linear-gradient(to right, #c8b89a 0%, #ece6d6 8%, #ece6d6 100%)",
         padding: "32px 48px",
@@ -227,6 +236,7 @@ function Bookplate({ book, navigate }) {
               return (
                 <button
                   key={r.id || i}
+                  className="book-ledger-row"
                   onClick={() => navigate(`/book/${book.id}/reflection/${r.id}`)}
                   style={baseStyle}
                 >
@@ -237,6 +247,7 @@ function Bookplate({ book, navigate }) {
             return (
               <a
                 key={r.id || i}
+                className="book-ledger-row"
                 href={r.url}
                 target="_blank"
                 rel="noreferrer"
@@ -258,6 +269,7 @@ function Bookplate({ book, navigate }) {
           attended.map((c) => (
             <button
               key={c.no}
+              className="book-ledger-row"
               onClick={() => navigate(`/conference/${c.no}`)}
               style={{
                 display: "grid",
@@ -296,6 +308,7 @@ function Bookplate({ book, navigate }) {
           book.experiments.map((e, i) => (
             <a
               key={i}
+              className="book-ledger-row"
               href={e.url}
               target="_blank"
               rel="noreferrer"

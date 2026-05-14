@@ -473,6 +473,214 @@ svg [role="button"]:focus-visible rect:first-of-type {
   transition: transform var(--t-med), filter var(--t-med);
 }
 
+.book-view {
+  perspective: 1600px;
+}
+
+.book-stage {
+  padding: 8px 0 18px;
+  transform-style: preserve-3d;
+}
+
+.book-spread {
+  isolation: isolate;
+  overflow: visible;
+  transform: rotateX(4deg) translateZ(18px);
+  transform-style: preserve-3d;
+  background:
+    linear-gradient(90deg, #160d08 0%, #51341f 4%, #2a1b11 49%, #160d08 50%, #2d1c11 51%, #5a3a24 96%, #120b07 100%) !important;
+  box-shadow:
+    0 46px 86px rgba(0, 0, 0, 0.62),
+    0 18px 24px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(244, 201, 122, 0.18),
+    inset 0 0 32px rgba(244, 201, 122, 0.08);
+}
+
+.book-spread::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: -14px;
+  height: 30px;
+  z-index: -1;
+  border-radius: 0 0 18px 18px;
+  background:
+    repeating-linear-gradient(0deg, rgba(236, 230, 214, 0.5) 0 1px, rgba(142, 116, 78, 0.42) 1px 2px),
+    linear-gradient(90deg, #8f7a58, #eadfc5 12%, #846e4e 50%, #eadfc5 88%, #8f7a58);
+  filter: blur(0.2px);
+  opacity: 0.68;
+}
+
+.book-spread::after {
+  content: "";
+  position: absolute;
+  inset: -22px 34px auto;
+  height: 42px;
+  z-index: -2;
+  border-radius: 28px 28px 0 0;
+  background: radial-gradient(ellipse at center, rgba(244, 201, 122, 0.2), transparent 68%);
+  opacity: 0.62;
+}
+
+.book-spread__edge {
+  position: absolute;
+  top: 18px;
+  bottom: 4px;
+  width: 18px;
+  z-index: 4;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(0deg, rgba(236, 230, 214, 0.5) 0 1px, rgba(126, 101, 70, 0.38) 1px 3px),
+    linear-gradient(90deg, rgba(244, 201, 122, 0.12), rgba(33, 20, 12, 0.3));
+  opacity: 0.72;
+}
+
+.book-spread__edge--left {
+  left: 8px;
+  border-radius: 4px 0 0 8px;
+  transform: skewY(-3deg);
+}
+
+.book-spread__edge--right {
+  right: 8px;
+  border-radius: 0 4px 8px 0;
+  transform: skewY(3deg);
+}
+
+.book-spread__gutter {
+  position: absolute;
+  top: 14px;
+  bottom: 14px;
+  left: 50%;
+  width: 50px;
+  z-index: 5;
+  pointer-events: none;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(ellipse at center, rgba(10, 7, 5, 0.46), transparent 62%),
+    linear-gradient(90deg, transparent, rgba(86, 61, 38, 0.2) 34%, rgba(8, 5, 3, 0.34) 50%, rgba(255, 244, 220, 0.2) 68%, transparent);
+  mix-blend-mode: multiply;
+}
+
+.book-page {
+  min-width: 0;
+  overflow: hidden;
+  box-shadow:
+    inset 0 0 0 1px rgba(26, 20, 16, 0.08),
+    inset 0 22px 44px rgba(255, 248, 226, 0.28),
+    inset 0 -28px 52px rgba(70, 46, 28, 0.12);
+}
+
+.book-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(58, 42, 31, 0.026) 0 1px, transparent 1px 11px),
+    radial-gradient(circle at 22% 18%, rgba(200, 148, 29, 0.08), transparent 22%),
+    radial-gradient(circle at 78% 82%, rgba(26, 20, 16, 0.08), transparent 30%);
+  mix-blend-mode: multiply;
+}
+
+.book-page::after {
+  content: "";
+  position: absolute;
+  right: -42px;
+  bottom: -42px;
+  width: 112px;
+  height: 112px;
+  pointer-events: none;
+  background:
+    linear-gradient(135deg, transparent 48%, rgba(116, 88, 58, 0.2) 50%, rgba(255, 249, 230, 0.38) 52%, rgba(171, 143, 96, 0.14) 100%);
+  transform: rotate(6deg);
+  opacity: 0.6;
+}
+
+.book-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+.book-page--left {
+  border-radius: 4px 0 0 4px;
+  transform-origin: right center;
+  transform: rotateY(2.2deg);
+  background:
+    linear-gradient(90deg, #f1ead8 0%, #ece6d6 82%, #c3b18d 100%) !important;
+}
+
+.book-page--right {
+  border-radius: 0 4px 4px 0;
+  transform-origin: left center;
+  transform: rotateY(-2.2deg);
+  background:
+    linear-gradient(90deg, #b9a57d 0%, #ece6d6 10%, #f1ead8 100%) !important;
+}
+
+.frontispiece-page {
+  box-shadow:
+    inset -28px 0 40px rgba(83, 58, 33, 0.18),
+    inset 0 0 0 1px rgba(26, 20, 16, 0.08);
+}
+
+.bookplate-page {
+  box-shadow:
+    inset 28px 0 40px rgba(83, 58, 33, 0.18),
+    inset 0 0 0 1px rgba(26, 20, 16, 0.08);
+}
+
+.book-portrait {
+  position: relative;
+  width: 210px;
+  height: 210px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto;
+  border: 1px solid rgba(200, 148, 29, 0.36);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(244, 201, 122, 0.12), transparent 64%),
+    repeating-radial-gradient(circle, transparent 0 18px, rgba(26, 20, 16, 0.06) 18px 19px);
+}
+
+.book-portrait::before,
+.book-portrait::after {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border: 0.5px solid rgba(26, 20, 16, 0.18);
+  border-radius: 50%;
+}
+
+.book-portrait::after {
+  inset: 30px;
+  border-color: rgba(200, 148, 29, 0.28);
+  transform: rotate(18deg);
+}
+
+.book-ledger-row {
+  transition: background var(--t-fast), transform var(--t-fast), opacity var(--t-fast);
+}
+
+.book-ledger-row:hover {
+  background: rgba(200, 148, 29, 0.08) !important;
+  transform: translateX(3px);
+}
+
+.book-side-nav {
+  filter: drop-shadow(0 16px 20px rgba(0, 0, 0, 0.35));
+}
+
+.book-side-nav__mini {
+  box-shadow:
+    0 12px 20px rgba(0, 0, 0, 0.3),
+    inset 8px 0 0 rgba(0, 0, 0, 0.16),
+    inset 0 0 0 1px rgba(244, 201, 122, 0.1);
+}
+
 .archive-surface {
   position: relative;
   isolation: isolate;
@@ -528,6 +736,71 @@ svg [role="button"]:focus-visible rect:first-of-type {
 
   .solvay-backdrop__floor,
   .equation-veil {
+    display: none;
+  }
+
+  .book-view {
+    padding: 12px !important;
+  }
+
+  .book-root {
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+  }
+
+  .book-header {
+    gap: 16px;
+    padding: 8px 4px 14px !important;
+  }
+
+  .book-header button {
+    flex-shrink: 0;
+    letter-spacing: 0.22em !important;
+  }
+
+  .book-header__meta {
+    display: none;
+  }
+
+  .book-stage {
+    padding: 0;
+  }
+
+  .book-spread {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 10px !important;
+    transform: none;
+  }
+
+  .book-spread__gutter,
+  .book-spread__edge {
+    display: none;
+  }
+
+  .book-page {
+    min-height: auto !important;
+    padding: 28px 24px !important;
+    transform: none;
+    border-radius: 4px !important;
+  }
+
+  .book-page + .book-page {
+    margin-top: 10px;
+  }
+
+  .book-portrait {
+    width: 170px;
+    height: 170px;
+  }
+
+  .book-portrait img {
+    width: 140px !important;
+    height: 140px !important;
+  }
+
+  .book-side-nav {
     display: none;
   }
 }
