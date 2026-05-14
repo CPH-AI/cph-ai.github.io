@@ -6,6 +6,7 @@ export default function NotFound() {
 
   return (
     <motion.div
+      className="archive-surface"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -58,7 +59,7 @@ export default function NotFound() {
             fontSize="96"
             fill="#ece6d6"
             opacity="0.08"
-            letterSpacing="-4"
+            letterSpacing="0"
           >
             404
           </text>

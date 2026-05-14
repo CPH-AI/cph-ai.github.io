@@ -73,6 +73,7 @@ export default function Conference() {
 
   return (
     <motion.div
+      className="archive-surface"
       initial={{ opacity: 0, scale: 0.96 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0 }}
@@ -132,6 +133,7 @@ function Header({ navigate, no }) {
 function Sheet({ children }) {
   return (
     <div
+      className="cinematic-panel"
       style={{
         background: "#3a2a1f",
         padding: "10px",

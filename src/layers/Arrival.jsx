@@ -1,13 +1,21 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useIsMobile } from "../hooks/useWindowSize.js";
+import {
+  DepthScene,
+  EquationVeil,
+  QuantumDust,
+  SolvayBackdrop
+} from "../components/Atmosphere.jsx";
+
+const FIGURES = [-270, -210, -150, -92, -34, 34, 92, 150, 210, 270];
 
 export default function Arrival() {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
 
-  const enter = () => navigate("/study");
+  const enter = useCallback(() => navigate("/study"), [navigate]);
 
   useEffect(() => {
     const onKey = (e) => {
@@ -18,7 +26,7 @@ export default function Arrival() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  });
+  }, [enter]);
 
   if (isMobile) return <MobileArrival enter={enter} />;
 
@@ -26,214 +34,134 @@ export default function Arrival() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0, scale: 1.15, filter: "brightness(2)" }}
+      exit={{ opacity: 0, scale: 1.06, filter: "brightness(1.8)" }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      style={{ width: "100%", height: "100%", background: "#0e1218", display: "flex", alignItems: "center", justifyContent: "center" }}
+      style={{ width: "100%", height: "100%" }}
     >
-      <svg
-        viewBox="0 0 1000 600"
-        xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="xMidYMid meet"
-        style={{ width: "100%", height: "100%", maxHeight: "100vh" }}
-      >
-        <defs>
-          <radialGradient id="moon" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#ece6d6" stopOpacity="0.95" />
-            <stop offset="60%" stopColor="#ece6d6" stopOpacity="0.25" />
-            <stop offset="100%" stopColor="#ece6d6" stopOpacity="0" />
-          </radialGradient>
-          <radialGradient id="lamp" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#f4c97a" stopOpacity="0.85" />
-            <stop offset="60%" stopColor="#c8941d" stopOpacity="0.18" />
-            <stop offset="100%" stopColor="#c8941d" stopOpacity="0" />
-          </radialGradient>
-          <radialGradient id="doorGlow" cx="50%" cy="35%" r="60%">
-            <stop offset="0%" stopColor="#f4c97a" stopOpacity="0.55" />
-            <stop offset="100%" stopColor="#c8941d" stopOpacity="0" />
-          </radialGradient>
-          <radialGradient id="doorGlowHover" cx="50%" cy="35%" r="60%">
-            <stop offset="0%" stopColor="#f4c97a" stopOpacity="0.95" />
-            <stop offset="100%" stopColor="#c8941d" stopOpacity="0" />
-          </radialGradient>
-        </defs>
+      <DepthScene className="arrival-depth" intensity={1.2}>
+        <SolvayBackdrop />
+        <EquationVeil />
+        <QuantumDust />
 
-        <rect width="1000" height="600" fill="#0e1218" />
-
-        <g opacity="0.55" fill="#ece6d6">
-          {[
-            [120, 80, 0.8], [220, 40, 0.6], [340, 90, 0.7], [440, 55, 0.5],
-            [560, 35, 0.7], [680, 80, 0.6], [780, 50, 0.8], [880, 95, 0.6],
-            [60, 150, 0.5], [940, 160, 0.5]
-          ].map(([cx, cy, r], i) => (
-            <motion.circle
-              key={i}
-              cx={cx}
-              cy={cy}
-              r={r}
-              animate={{ opacity: [0.4, 0.9, 0.4] }}
-              transition={{ duration: 2 + (i % 3), repeat: Infinity, delay: i * 0.2 }}
-            />
-          ))}
-        </g>
-
-        <circle cx="850" cy="100" r="120" fill="url(#moon)" />
-        <circle cx="850" cy="100" r="32" fill="#ece6d6" opacity="0.9" />
-        <circle cx="845" cy="92" r="3" fill="#0e1218" opacity="0.15" />
-        <circle cx="858" cy="105" r="2" fill="#0e1218" opacity="0.15" />
-
-        <g fill="#1a1f2e" stroke="#2a2f3e" strokeWidth="0.5">
-          <rect x="0" y="280" width="280" height="320" />
-          <rect x="720" y="260" width="280" height="340" />
-          <g fill="#0e1218" opacity="0.7">
-            <rect x="40" y="320" width="30" height="40" />
-            <rect x="100" y="320" width="30" height="40" />
-            <rect x="160" y="320" width="30" height="40" />
-            <rect x="220" y="320" width="30" height="40" />
-            <rect x="40" y="400" width="30" height="40" />
-            <rect x="100" y="400" width="30" height="40" />
-            <rect x="160" y="400" width="30" height="40" />
-            <rect x="220" y="400" width="30" height="40" />
-          </g>
-          <g fill="#0e1218" opacity="0.7">
-            <rect x="750" y="300" width="30" height="40" />
-            <rect x="810" y="300" width="30" height="40" />
-            <rect x="870" y="300" width="30" height="40" />
-            <rect x="930" y="300" width="30" height="40" />
-            <rect x="750" y="380" width="30" height="40" />
-            <rect x="810" y="380" width="30" height="40" />
-            <rect x="870" y="380" width="30" height="40" />
-            <rect x="930" y="380" width="30" height="40" />
-          </g>
-          <g fill="#f4c97a" opacity="0.45">
-            <rect x="100" y="320" width="30" height="40" />
-            <rect x="220" y="400" width="30" height="40" />
-            <rect x="810" y="300" width="30" height="40" />
-            <rect x="870" y="380" width="30" height="40" />
-          </g>
-        </g>
-
-        <g fill="#1a1f2e" stroke="#3a3f4e" strokeWidth="1">
-          <rect x="280" y="180" width="440" height="420" />
-          <path d="M 280 180 L 280 140 L 720 140 L 720 180 Z" fill="#1a1f2e" />
-          <path d="M 270 180 L 730 180 L 730 200 L 270 200 Z" fill="#252a39" />
-        </g>
-
-        <g fontFamily="Georgia, serif" fill="#c8941d" fontStyle="italic">
-          <text x="500" y="170" textAnchor="middle" fontSize="13" letterSpacing="0.3em">
-            HÔTEL MÉTROPOLE
-          </text>
-        </g>
-
-        <g fill="#0e1218" stroke="#3a3f4e" strokeWidth="0.5">
-          <rect x="320" y="240" width="60" height="100" />
-          <rect x="410" y="240" width="60" height="100" />
-          <rect x="530" y="240" width="60" height="100" />
-          <rect x="620" y="240" width="60" height="100" />
-          <rect x="320" y="380" width="60" height="100" />
-          <rect x="620" y="380" width="60" height="100" />
-          <line x1="350" y1="240" x2="350" y2="340" stroke="#3a3f4e" />
-          <line x1="440" y1="240" x2="440" y2="340" stroke="#3a3f4e" />
-          <line x1="560" y1="240" x2="560" y2="340" stroke="#3a3f4e" />
-          <line x1="650" y1="240" x2="650" y2="340" stroke="#3a3f4e" />
-          <line x1="320" y1="290" x2="380" y2="290" stroke="#3a3f4e" />
-          <line x1="410" y1="290" x2="470" y2="290" stroke="#3a3f4e" />
-          <line x1="530" y1="290" x2="590" y2="290" stroke="#3a3f4e" />
-          <line x1="620" y1="290" x2="680" y2="290" stroke="#3a3f4e" />
-        </g>
-
-        <g>
-          <motion.circle
-            cx="320"
-            cy="380"
-            r="55"
-            fill="url(#lamp)"
-            animate={{ opacity: [0.55, 0.7, 0.55] }}
-            transition={{ duration: 4, repeat: Infinity }}
-          />
-          <line x1="320" y1="200" x2="320" y2="360" stroke="#3a3f4e" strokeWidth="2" />
-          <circle cx="320" cy="370" r="8" fill="#f4c97a" opacity="0.95" />
-          <rect x="316" y="378" width="8" height="14" fill="#3a3f4e" />
-        </g>
-        <g>
-          <motion.circle
-            cx="680"
-            cy="380"
-            r="55"
-            fill="url(#lamp)"
-            animate={{ opacity: [0.55, 0.7, 0.55] }}
-            transition={{ duration: 4, repeat: Infinity, delay: 1 }}
-          />
-          <line x1="680" y1="200" x2="680" y2="360" stroke="#3a3f4e" strokeWidth="2" />
-          <circle cx="680" cy="370" r="8" fill="#f4c97a" opacity="0.95" />
-          <rect x="676" y="378" width="8" height="14" fill="#3a3f4e" />
-        </g>
-
-        <motion.g
-          style={{ cursor: "pointer" }}
-          onClick={enter}
-          role="button"
-          tabIndex={0}
-          aria-label="Enter the conference"
-          whileHover="hover"
-          initial="rest"
+        <motion.div
+          className="arrival-stage-object"
+          initial={{ opacity: 0, y: 28, rotateX: 8 }}
+          animate={{ opacity: 1, y: 0, rotateX: 0 }}
+          transition={{ delay: 0.12, duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
         >
-          <motion.ellipse
-            cx="500"
-            cy="600"
-            rx="180"
-            ry="60"
-            fill="url(#doorGlow)"
-            variants={{ rest: { opacity: 1 }, hover: { opacity: 0 } }}
-            transition={{ duration: 0.4 }}
-          />
-          <motion.ellipse
-            cx="500"
-            cy="600"
-            rx="200"
-            ry="80"
-            fill="url(#doorGlowHover)"
-            variants={{ rest: { opacity: 0 }, hover: { opacity: 1 } }}
-            transition={{ duration: 0.4 }}
-          />
-          <rect x="430" y="380" width="140" height="220" fill="#2a1f15" stroke="#c8941d" strokeWidth="1.5" />
-          <path d="M 430 380 Q 500 360 570 380" fill="none" stroke="#c8941d" strokeWidth="1.5" />
-          <line x1="500" y1="380" x2="500" y2="600" stroke="#1a1010" strokeWidth="1.2" />
-          <rect x="446" y="410" width="40" height="60" fill="none" stroke="#c8941d" strokeWidth="0.7" opacity="0.6" />
-          <rect x="514" y="410" width="40" height="60" fill="none" stroke="#c8941d" strokeWidth="0.7" opacity="0.6" />
-          <rect x="446" y="490" width="40" height="80" fill="none" stroke="#c8941d" strokeWidth="0.7" opacity="0.6" />
-          <rect x="514" y="490" width="40" height="80" fill="none" stroke="#c8941d" strokeWidth="0.7" opacity="0.6" />
-          <circle cx="488" cy="498" r="2.5" fill="#c8941d" />
-          <circle cx="512" cy="498" r="2.5" fill="#c8941d" />
-        </motion.g>
-
-        <g fontFamily="'SF Mono', Consolas, monospace" fill="#ece6d6" opacity="0.55">
-          <text x="500" y="50" textAnchor="middle" fontSize="11" letterSpacing="0.4em">
-            BRUSSELS · OCTOBER 1927
-          </text>
-          <line x1="380" y1="62" x2="445" y2="62" stroke="#ece6d6" opacity="0.3" strokeWidth="0.5" />
-          <line x1="555" y1="62" x2="620" y2="62" stroke="#ece6d6" opacity="0.3" strokeWidth="0.5" />
-        </g>
-
-        <g fontFamily="Georgia, serif" fontStyle="italic" fill="#ece6d6" opacity="0.85" style={{ pointerEvents: "none" }}>
-          <text x="500" y="540" textAnchor="middle" fontSize="14" letterSpacing="0.15em">
-            Enter the conference
-          </text>
-          <motion.text
-            x="500"
-            y="558"
-            textAnchor="middle"
-            fontSize="9"
-            fontStyle="normal"
-            fontFamily="'SF Mono', Consolas, monospace"
-            letterSpacing="0.3em"
-            fill="#c8941d"
-            animate={{ opacity: [0.4, 0.85, 0.4] }}
-            transition={{ duration: 2.5, repeat: Infinity }}
+          <svg
+            className="arrival-portal"
+            viewBox="0 0 1000 600"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="xMidYMid meet"
           >
-            ▾  CLICK  ·  ENTER
-          </motion.text>
-        </g>
-      </svg>
+            <defs>
+              <radialGradient id="arrivalLamp" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor="#f4c97a" stopOpacity="0.95" />
+                <stop offset="55%" stopColor="#c8941d" stopOpacity="0.22" />
+                <stop offset="100%" stopColor="#c8941d" stopOpacity="0" />
+              </radialGradient>
+              <linearGradient id="arrivalBronze" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0%" stopColor="#f4c97a" stopOpacity="0.74" />
+                <stop offset="42%" stopColor="#9f5f32" stopOpacity="0.62" />
+                <stop offset="100%" stopColor="#1a1410" stopOpacity="0.9" />
+              </linearGradient>
+              <linearGradient id="arrivalGlass" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stopColor="#ece6d6" stopOpacity="0.18" />
+                <stop offset="45%" stopColor="#5ba7d8" stopOpacity="0.1" />
+                <stop offset="100%" stopColor="#0a0805" stopOpacity="0.42" />
+              </linearGradient>
+              <filter id="arrivalGlow">
+                <feGaussianBlur stdDeviation="8" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+
+            <motion.g
+              animate={{ opacity: [0.35, 0.68, 0.35] }}
+              transition={{ duration: 6, repeat: Infinity }}
+              filter="url(#arrivalGlow)"
+            >
+              <ellipse cx="500" cy="318" rx="350" ry="92" fill="url(#arrivalLamp)" opacity="0.56" />
+              <ellipse cx="500" cy="544" rx="330" ry="58" fill="url(#arrivalLamp)" opacity="0.28" />
+            </motion.g>
+
+            <g transform="translate(500 330)" opacity="0.72">
+              <ellipse cx="0" cy="122" rx="330" ry="60" fill="#050403" opacity="0.58" />
+              <path
+                d="M -336 122 C -268 64 -188 34 0 34 C 188 34 268 64 336 122 L 278 154 C 176 118 88 102 0 102 C -88 102 -176 118 -278 154 Z"
+                fill="#120c08"
+                stroke="#c8941d"
+                strokeWidth="1"
+                opacity="0.76"
+              />
+              <path
+                d="M -286 114 C -210 77 -132 58 0 58 C 132 58 210 77 286 114"
+                fill="none"
+                stroke="#5ba7d8"
+                strokeWidth="1"
+                strokeOpacity="0.3"
+                strokeDasharray="10 12"
+              />
+              {FIGURES.map((x, i) => (
+                <g key={x} transform={`translate(${x} ${76 + (i % 2) * 8})`}>
+                  <circle r="10" fill="#d8c7a4" opacity={i === 4 || i === 5 ? 0.78 : 0.46} />
+                  <path
+                    d="M -16 14 Q 0 0 16 14 L 24 46 L -24 46 Z"
+                    fill={i === 4 || i === 5 ? "#1a1410" : "#0b0907"}
+                    opacity={i === 4 || i === 5 ? 0.9 : 0.7}
+                  />
+                  <path d="M -14 44 L 14 44" stroke="#c8941d" strokeWidth="0.8" opacity="0.35" />
+                </g>
+              ))}
+            </g>
+
+            <g transform="translate(500 282)">
+              <path
+                d="M -258 256 L 258 256 L 210 -198 Q 0 -256 -210 -198 Z"
+                fill="url(#arrivalGlass)"
+                stroke="url(#arrivalBronze)"
+                strokeWidth="2"
+                opacity="0.86"
+              />
+              <path
+                d="M -212 -176 Q 0 -226 212 -176 L 172 222 L -172 222 Z"
+                fill="none"
+                stroke="#f4c97a"
+                strokeWidth="0.8"
+                opacity="0.26"
+              />
+              <path d="M 0 -218 L 0 252" stroke="#f4c97a" strokeWidth="0.7" opacity="0.24" />
+              <path d="M -174 -123 Q 0 -156 174 -123" fill="none" stroke="#ece6d6" strokeWidth="0.7" opacity="0.2" />
+              <path d="M -194 -52 Q 0 -84 194 -52" fill="none" stroke="#ece6d6" strokeWidth="0.7" opacity="0.16" />
+              <path d="M -214 48 Q 0 18 214 48" fill="none" stroke="#ece6d6" strokeWidth="0.7" opacity="0.14" />
+              <path d="M -230 150 Q 0 122 230 150" fill="none" stroke="#ece6d6" strokeWidth="0.7" opacity="0.12" />
+            </g>
+
+          </svg>
+
+          <div className="arrival-title" aria-hidden="true">
+            <span>Conseil de Copenhagen</span>
+            <strong>COPENHAGEN AI</strong>
+            <em>between observation and collapse</em>
+          </div>
+
+          <div className="arrival-enter-wrap">
+            <motion.button
+              className="arrival-enter"
+              onClick={enter}
+              whileHover={{ y: -5, scale: 1.025 }}
+              whileTap={{ scale: 0.98 }}
+              aria-label="Enter the conference"
+            >
+              <span>ENTER THE CONFERENCE</span>
+            </motion.button>
+          </div>
+        </motion.div>
+      </DepthScene>
     </motion.div>
   );
 }
@@ -245,94 +173,24 @@ function MobileArrival({ enter }) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.7 }}
-      onClick={enter}
-      style={{
-        width: "100%",
-        height: "100%",
-        background: "#0e1218",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: "0",
-        cursor: "pointer",
-        userSelect: "none",
-        padding: "2rem"
-      }}
+      style={{ width: "100%", height: "100%" }}
     >
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2, duration: 0.7 }}
-        style={{ textAlign: "center" }}
-      >
-        <div style={{
-          fontFamily: "'SF Mono', Consolas, monospace",
-          fontSize: "10px",
-          letterSpacing: "0.4em",
-          color: "#c8941d",
-          opacity: 0.7,
-          marginBottom: "20px"
-        }}>
-          1927  ·  BRUSSELS
+      <DepthScene className="arrival-depth arrival-depth--mobile" intensity={0.4}>
+        <SolvayBackdrop />
+        <QuantumDust density="light" />
+        <div className="arrival-mobile-copy">
+          <span>Conseil de Copenhagen</span>
+          <strong>
+            COPENHAGEN
+            <br />
+            AI
+          </strong>
+          <em>Mastering the Art of AI Utilization</em>
+          <button onClick={enter} aria-label="Enter the conference">
+            ENTER THE CONFERENCE
+          </button>
         </div>
-
-        <div style={{
-          fontFamily: "Georgia, serif",
-          fontWeight: 700,
-          fontSize: "32px",
-          letterSpacing: "0.12em",
-          color: "#ece6d6",
-          marginBottom: "8px"
-        }}>
-          COPENHAGEN AI
-        </div>
-
-        <div style={{
-          fontFamily: "Georgia, serif",
-          fontStyle: "italic",
-          fontSize: "13px",
-          color: "#ece6d6",
-          opacity: 0.5,
-          marginBottom: "48px"
-        }}>
-          Mastering the Art of AI Utilization
-        </div>
-
-        <div style={{
-          width: "120px",
-          height: "0.5px",
-          background: "#c8941d",
-          opacity: 0.4,
-          margin: "0 auto 48px"
-        }} />
-
-        <motion.div
-          animate={{ opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 2.5, repeat: Infinity }}
-          style={{
-            fontFamily: "'SF Mono', Consolas, monospace",
-            fontSize: "10px",
-            letterSpacing: "0.35em",
-            color: "#c8941d",
-            opacity: 0.8
-          }}
-        >
-          TAP TO ENTER
-        </motion.div>
-      </motion.div>
-
-      <div style={{
-        position: "absolute",
-        bottom: "32px",
-        fontFamily: "'SF Mono', Consolas, monospace",
-        fontSize: "8px",
-        letterSpacing: "0.3em",
-        color: "#ece6d6",
-        opacity: 0.25
-      }}>
-        COPENHAGEN  AI  ·  2025
-      </div>
+      </DepthScene>
     </motion.div>
   );
 }

@@ -62,6 +62,7 @@ export default function Reflection() {
 
   return (
     <motion.div
+      className="archive-surface"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
@@ -81,6 +82,7 @@ export default function Reflection() {
         <Header book={book} navigate={navigate} />
 
         <div
+          className="cinematic-panel"
           style={{
             background: "#3a2a1f",
             padding: "10px",

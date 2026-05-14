@@ -4,6 +4,12 @@ import { useEffect, useMemo, useState } from "react";
 import data from "../data/members.json";
 import conferencesData from "../data/conferences.json";
 import { useIsMobile } from "../hooks/useWindowSize.js";
+import {
+  DepthScene,
+  EquationVeil,
+  QuantumDust,
+  SolvayBackdrop
+} from "../components/Atmosphere.jsx";
 
 const SIGILS = {
   einstein: (
@@ -113,9 +119,14 @@ export default function Study() {
       animate={{ opacity: 1, scale: 1, filter: "brightness(1)" }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      style={{ width: "100%", height: "100%", background: "#1a1410", display: "flex", alignItems: "center", justifyContent: "center" }}
+      style={{ width: "100%", height: "100%" }}
     >
+      <DepthScene className="study-depth" intensity={0.9}>
+        <SolvayBackdrop variant="study" />
+        <EquationVeil compact />
+        <QuantumDust density="light" />
       <svg
+        className="study-cinema-svg"
         viewBox="0 0 1000 600"
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="xMidYMid meet"
@@ -152,9 +163,44 @@ export default function Study() {
             <line x1="0" y1="0" x2="0" y2="20" stroke="#1a1410" strokeWidth="1" />
             <line x1="40" y1="0" x2="40" y2="20" stroke="#1a1410" strokeWidth="0.5" opacity="0.5" />
           </pattern>
+          <radialGradient id="councilTable" cx="50%" cy="42%" r="64%">
+            <stop offset="0%" stopColor="#4a3525" stopOpacity="0.95" />
+            <stop offset="58%" stopColor="#2a1a10" stopOpacity="0.95" />
+            <stop offset="100%" stopColor="#090604" stopOpacity="0.95" />
+          </radialGradient>
+          <linearGradient id="stageRiser" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stopColor="#493020" />
+            <stop offset="55%" stopColor="#25160e" />
+            <stop offset="100%" stopColor="#090604" />
+          </linearGradient>
+          <linearGradient id="podiumFace" x1="0" x2="1" y1="0" y2="0">
+            <stop offset="0%" stopColor="#21130c" />
+            <stop offset="28%" stopColor="#5a3924" />
+            <stop offset="54%" stopColor="#7a4b2c" />
+            <stop offset="82%" stopColor="#2b1a10" />
+            <stop offset="100%" stopColor="#120b07" />
+          </linearGradient>
+          <linearGradient id="podiumTop" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stopColor="#7c5032" />
+            <stop offset="100%" stopColor="#2a1a10" />
+          </linearGradient>
+          <radialGradient id="stageLamp" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#f4c97a" stopOpacity="0.65" />
+            <stop offset="55%" stopColor="#c8941d" stopOpacity="0.16" />
+            <stop offset="100%" stopColor="#c8941d" stopOpacity="0" />
+          </radialGradient>
+          <linearGradient id="bookGilding" x1="0" x2="1" y1="0" y2="0">
+            <stop offset="0%" stopColor="#8b5a18" />
+            <stop offset="45%" stopColor="#f4c97a" />
+            <stop offset="100%" stopColor="#9f5f32" />
+          </linearGradient>
+          <linearGradient id="bookPageEdge" x1="0" x2="1" y1="0" y2="0">
+            <stop offset="0%" stopColor="#f7efd9" stopOpacity="0.92" />
+            <stop offset="100%" stopColor="#8d795a" stopOpacity="0.8" />
+          </linearGradient>
         </defs>
 
-        <rect width="1000" height="600" fill="#1a1410" />
+        <rect width="1000" height="600" fill="#1a1410" opacity="0.82" />
         <rect width="1000" height="80" fill="url(#ceilingGlow)" />
 
         <g transform="translate(500 38)" opacity="0.5">
@@ -166,15 +212,67 @@ export default function Study() {
           <circle r="2" fill="#c8941d" />
         </g>
 
-        <rect x="0" y="80" width="1000" height="350" fill="#241a12" />
+        <rect x="0" y="80" width="1000" height="350" fill="#241a12" opacity="0.78" />
+        <path d="M 0 80 L 150 136 L 150 430 L 0 430 Z" fill="#120d09" opacity="0.54" />
+        <path d="M 1000 80 L 850 136 L 850 430 L 1000 430 Z" fill="#0d1816" opacity="0.44" />
+        <path d="M 150 136 L 850 136 L 805 420 L 195 420 Z" fill="#1c120c" opacity="0.36" />
         <g opacity="0.18" stroke="#3a2a1a" strokeWidth="0.5">
           <line x1="0" y1="120" x2="1000" y2="120" />
           <line x1="0" y1="180" x2="1000" y2="180" />
           <line x1="0" y1="260" x2="1000" y2="260" />
           <line x1="0" y1="340" x2="1000" y2="340" />
         </g>
+        <g opacity="0.58">
+          <path d="M 158 120 Q 248 172 254 420" fill="none" stroke="#6e3c22" strokeWidth="10" strokeOpacity="0.25" />
+          <path d="M 842 120 Q 752 172 746 420" fill="none" stroke="#6e3c22" strokeWidth="10" strokeOpacity="0.25" />
+          <path d="M 180 124 L 180 420" stroke="#c8941d" strokeWidth="0.7" opacity="0.35" />
+          <path d="M 820 124 L 820 420" stroke="#c8941d" strokeWidth="0.7" opacity="0.35" />
+        </g>
+        <g transform="translate(500 112)" textAnchor="middle">
+          <rect x="-176" y="-22" width="352" height="34" fill="#120b07" stroke="#c8941d" strokeWidth="0.6" opacity="0.82" />
+          <text y="-8" fontFamily="'SF Mono', Consolas, monospace" fontSize="7" letterSpacing="0.42em" fill="#c8941d" opacity="0.78">
+            COPENHAGEN AI COUNCIL
+          </text>
+          <text y="6" fontFamily="Georgia, serif" fontStyle="italic" fontSize="9" fill="#ece6d6" opacity="0.52">
+            weekly observation chamber
+          </text>
+        </g>
         <rect x="0" y="430" width="1000" height="170" fill="url(#floor)" />
         <rect x="0" y="425" width="1000" height="6" fill="#3a2a1a" />
+
+        <g transform="translate(500 404)" opacity="0.9">
+          <ellipse cx="0" cy="88" rx="380" ry="70" fill="#090604" opacity="0.58" />
+          <path d="M -410 84 C -300 26 -172 -6 0 -6 C 172 -6 300 26 410 84 L 348 126 C 214 84 102 70 0 70 C -102 70 -214 84 -348 126 Z" fill="#100905" opacity="0.82" />
+          <path
+            d="M -330 24 C -228 -24 -118 -42 0 -42 C 118 -42 228 -24 330 24 L 286 72 C 172 38 86 24 0 24 C -86 24 -172 38 -286 72 Z"
+            fill="url(#councilTable)"
+            stroke="#c8941d"
+            strokeWidth="1.2"
+            opacity="0.94"
+          />
+          <path d="M -330 24 C -228 -24 -118 -42 0 -42 C 118 -42 228 -24 330 24" fill="none" stroke="#f4c97a" strokeWidth="1" opacity="0.36" />
+          <path d="M -292 58 C -178 22 -78 12 0 12 C 78 12 178 22 292 58" fill="none" stroke="#c8941d" strokeWidth="0.7" opacity="0.4" />
+          <motion.path
+            d="M -284 18 C -174 -14 -78 -25 0 -25 C 78 -25 174 -14 284 18"
+            fill="none"
+            stroke="#5ba7d8"
+            strokeWidth="0.8"
+            strokeDasharray="6 10"
+            animate={{ strokeOpacity: [0.18, 0.46, 0.18] }}
+            transition={{ duration: 4.8, repeat: Infinity }}
+          />
+          {[-286, -228, -170, -112, -54, 54, 112, 170, 228, 286].map((x, i) => (
+            <g key={x} transform={`translate(${x} ${i % 2 === 0 ? -32 : -20})`}>
+              <circle r="8" fill="#d8c7a4" opacity={i === 4 || i === 5 ? 0.66 : 0.44} />
+              <path d="M -14 11 Q 0 0 14 11 L 22 40 L -22 40 Z" fill="#0b0907" opacity={i === 4 || i === 5 ? 0.86 : 0.74} />
+              <path d="M -10 34 L 10 34" stroke="#c8941d" strokeWidth="0.6" opacity="0.36" />
+              <line x1="0" y1="42" x2="0" y2="56" stroke="#c8941d" strokeWidth="0.5" opacity="0.28" />
+            </g>
+          ))}
+          <text x="0" y="102" textAnchor="middle" fontFamily="'SF Mono', Consolas, monospace" fontSize="7" letterSpacing="0.34em" fill="#c8941d" opacity="0.58">
+            SOLVAY TABLE · LIVE OBSERVATION
+          </text>
+        </g>
 
         <g transform="translate(85 270)">
           <rect x="-75" y="-110" width="150" height="220" fill="#3a2820" stroke="#c8941d" strokeWidth="1.2" opacity="0.9" />
@@ -258,19 +356,20 @@ export default function Study() {
           )}
         </g>
 
-        <g transform="translate(500 140)">
-          <rect x="-260" y="0" width="520" height="220" fill="#2a1f15" stroke="#c8941d" strokeWidth="1.2" opacity="0.95" />
-          <line x1="-260" y1="110" x2="260" y2="110" stroke="#c8941d" strokeWidth="1" opacity="0.5" />
-          <line x1="-260" y1="220" x2="260" y2="220" stroke="#c8941d" strokeWidth="1.5" />
+        <g transform="translate(500 142)">
+          <rect x="-238" y="0" width="476" height="136" fill="#24170f" stroke="#c8941d" strokeWidth="1" opacity="0.84" />
+          <rect x="-224" y="14" width="448" height="74" fill="#120c08" stroke="#6e3c22" strokeWidth="0.6" opacity="0.72" />
+          <line x1="-238" y1="68" x2="238" y2="68" stroke="#c8941d" strokeWidth="0.7" opacity="0.35" />
+          <line x1="-238" y1="136" x2="238" y2="136" stroke="#c8941d" strokeWidth="1.2" />
           <g fill="#c8941d" opacity="0.4">
-            <rect x="-258" y="2" width="2" height="216" />
-            <rect x="256" y="2" width="2" height="216" />
+            <rect x="-236" y="2" width="2" height="132" />
+            <rect x="234" y="2" width="2" height="132" />
           </g>
 
           {data.books.map((book, i) => {
             const isFocused = focused === i;
             return (
-              <g key={book.id} transform={`translate(${positions[i]} 120)`}>
+              <g key={book.id} transform={`translate(${positions[i] * 0.72} 104) scale(0.82)`}>
                 <motion.g
                   style={{ cursor: "pointer", outline: "none" }}
                   onClick={() => openBook(book.id)}
@@ -280,54 +379,81 @@ export default function Study() {
                   animate={{ y: isFocused ? -8 : 0 }}
                   transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                 >
+                  <ellipse cx="8" cy="9" rx="54" ry="10" fill="#050302" opacity="0.44" />
+                  <path d="M -39 -99 L 48 -99 L 57 -91 L 57 4 L 48 -3 L 48 -91 L -39 -91 Z" fill="url(#bookPageEdge)" opacity="0.62" />
+                  <path d="M -39 0 L 48 0 L 57 7 L -30 7 Z" fill="url(#bookPageEdge)" opacity="0.46" />
                   <rect
-                    x="-46"
-                    y="-100"
-                    width="92"
-                    height="100"
+                    x="-50"
+                    y="-106"
+                    width="98"
+                    height="108"
+                    rx="2"
                     fill={book.coverColor}
                     stroke={isFocused ? "#f4c97a" : "#1a1410"}
-                    strokeWidth={isFocused ? 1.6 : 1.2}
+                    strokeWidth={isFocused ? 1.8 : 1.1}
                   />
-                  <rect x="-42" y="-96" width="84" height="13" fill="#c8941d" opacity="0.8" />
-                  <rect x="-42" y="-20" width="84" height="13" fill="#c8941d" opacity="0.8" />
-                  <line x1="-42" y1="-72" x2="42" y2="-72" stroke="#1a1410" strokeWidth="0.5" />
-                  <line x1="-42" y1="-46" x2="42" y2="-46" stroke="#1a1410" strokeWidth="0.5" />
+                  <rect x="-50" y="-106" width="14" height="108" fill="#090604" opacity="0.26" />
+                  <line x1="-35" y1="-101" x2="-35" y2="-4" stroke="#f4c97a" strokeWidth="0.6" opacity="0.32" />
+                  <rect x="-43" y="-99" width="84" height="12" fill="url(#bookGilding)" opacity="0.88" />
+                  <rect x="-43" y="-16" width="84" height="12" fill="url(#bookGilding)" opacity="0.88" />
+                  <rect x="-28" y="-76" width="58" height="34" fill="#0a0805" opacity="0.16" stroke="#f4c97a" strokeWidth="0.45" strokeOpacity="0.35" />
+                  <path d="M -43 -80 L -32 -80 L -32 -69 M 41 -80 L 30 -80 L 30 -69 M -43 -36 L -32 -36 L -32 -47 M 41 -36 L 30 -36 L 30 -47" fill="none" stroke="#f4c97a" strokeWidth="0.7" opacity="0.5" />
+                  <line x1="-28" y1="-66" x2="30" y2="-66" stroke="#1a1410" strokeWidth="0.5" opacity="0.55" />
+                  <line x1="-28" y1="-52" x2="30" y2="-52" stroke="#1a1410" strokeWidth="0.5" opacity="0.55" />
+                  <motion.path
+                    d="M -45 -102 L 44 -102 L 44 0 L -45 0 Z"
+                    fill="none"
+                    stroke="#f4c97a"
+                    strokeWidth="0.6"
+                    strokeOpacity={isFocused ? 0.68 : 0.24}
+                  />
                   <text
-                    x="0"
-                    y="-58"
+                    x="1"
+                    y="-59"
                     textAnchor="middle"
                     fontFamily="Georgia, serif"
                     fontStyle="italic"
-                    fontSize={book.physicist.length > 6 ? "10" : "12"}
+                    fontSize={book.physicist.length > 8 ? "9" : "11"}
                     fill="#ece6d6"
-                    letterSpacing="0.08em"
+                    letterSpacing="0.06em"
                   >
                     {book.physicist}
                   </text>
                   <text
-                    x="0"
-                    y="-44"
+                    x="1"
+                    y="-28"
                     textAnchor="middle"
                     fontFamily="'SF Mono', Consolas, monospace"
-                    fontSize="7"
-                    fill="#ece6d6"
-                    opacity="0.6"
+                    fontSize="6"
+                    fill="#f4c97a"
+                    opacity="0.68"
                     letterSpacing="0.2em"
                   >
                     VOL · {book.vol}
                   </text>
-                  <g transform="translate(0 -82)">{SIGILS[book.id]}</g>
+                  <text
+                    x="1"
+                    y="-20"
+                    textAnchor="middle"
+                    fontFamily="Georgia, serif"
+                    fontStyle="italic"
+                    fontSize="5.8"
+                    fill="#ece6d6"
+                    opacity="0.44"
+                  >
+                    {book.role}
+                  </text>
+                  <g transform="translate(0 -84)">{SIGILS[book.id]}</g>
                 </motion.g>
               </g>
             );
           })}
 
-          <text x="0" y="180" textAnchor="middle" fontFamily="'SF Mono', Consolas, monospace" fontSize="9" letterSpacing="0.4em" fill="#c8941d" opacity="0.55">
-            F O U R · V O L U M E S
+          <text x="0" y="112" textAnchor="middle" fontFamily="'SF Mono', Consolas, monospace" fontSize="7" letterSpacing="0.36em" fill="#c8941d" opacity="0.58">
+            FOUR DELEGATE VOLUMES
           </text>
-          <text x="0" y="200" textAnchor="middle" fontFamily="Georgia, serif" fontStyle="italic" fontSize="11" fill="#ece6d6" opacity="0.45">
-            choose a volume to enter
+          <text x="0" y="126" textAnchor="middle" fontFamily="Georgia, serif" fontStyle="italic" fontSize="9" fill="#ece6d6" opacity="0.4">
+            select a chair at the council
           </text>
         </g>
 
@@ -369,11 +495,20 @@ export default function Study() {
           })}
         </g>
 
-        <g transform="translate(500 540)">
-          <ellipse cx="0" cy="6" rx="78" ry="8" fill="#0a0805" opacity="0.55" />
+        <g transform="translate(500 502)">
+          <ellipse cx="0" cy="42" rx="252" ry="36" fill="#050302" opacity="0.64" />
+          <path
+            d="M -300 18 L 300 18 L 364 78 L -364 78 Z"
+            fill="url(#stageRiser)"
+            stroke="#c8941d"
+            strokeWidth="1"
+            opacity="0.94"
+          />
+          <path d="M -300 18 L 300 18" stroke="#f4c97a" strokeWidth="0.8" opacity="0.34" />
+          <path d="M -250 44 L 250 44" stroke="#5ba7d8" strokeWidth="0.5" strokeDasharray="7 10" opacity="0.28" />
         </g>
 
-        <g transform="translate(620 480)">
+        <g transform="translate(656 452)">
           <text x="0" y="0" fontFamily="Georgia, serif" fontStyle="italic" fontSize="11" fill="#ece6d6" opacity="0.55">
             Conference No. {String(data.site.conferenceNumber).padStart(2, "0")}
           </text>
@@ -391,37 +526,63 @@ export default function Study() {
           </motion.text>
         </g>
 
-        <g transform="translate(500 415)">
-          <path d="M -38 120 L 38 120 L 32 0 L -32 0 Z" fill="url(#lecCol)" stroke="#c8941d" strokeWidth="0.6" />
-          <line x1="-32" y1="0" x2="-38" y2="120" stroke="#c8941d" strokeWidth="0.5" opacity="0.4" />
-          <line x1="32" y1="0" x2="38" y2="120" stroke="#c8941d" strokeWidth="0.5" opacity="0.4" />
-          <rect x="-46" y="116" width="92" height="6" fill="#3a2820" stroke="#c8941d" strokeWidth="0.5" />
-          <path d="M -52 -5 L 52 -5 L 60 5 L -60 5 Z" fill="url(#lecTop)" stroke="#c8941d" strokeWidth="0.7" />
-          <path d="M -60 5 L 60 5 L 56 -22 L -56 -22 Z" fill="#3a2820" stroke="#c8941d" strokeWidth="0.7" />
-          <line x1="-56" y1="-22" x2="56" y2="-22" stroke="#c8941d" strokeWidth="0.5" opacity="0.5" />
-
+        <g transform="translate(500 348)">
+          <motion.ellipse
+            cx="0"
+            cy="86"
+            rx="190"
+            ry="72"
+            fill="url(#stageLamp)"
+            animate={{ opacity: [0.58, 0.86, 0.58] }}
+            transition={{ duration: 5.2, repeat: Infinity }}
+          />
+          <g opacity="0.78">
+            <line x1="-94" y1="12" x2="-146" y2="-46" stroke="#c8941d" strokeWidth="0.7" />
+            <line x1="94" y1="12" x2="146" y2="-46" stroke="#c8941d" strokeWidth="0.7" />
+            <circle cx="-148" cy="-48" r="17" fill="url(#stageLamp)" opacity="0.72" />
+            <circle cx="148" cy="-48" r="17" fill="url(#stageLamp)" opacity="0.72" />
+            <circle cx="-148" cy="-48" r="3" fill="#f4c97a" opacity="0.9" />
+            <circle cx="148" cy="-48" r="3" fill="#f4c97a" opacity="0.9" />
+          </g>
           <motion.g
             style={{ cursor: "pointer" }}
             onClick={() => navigate("/conferences")}
             role="button"
             aria-label="Open conference archive"
-            whileHover={{ y: -3 }}
+            whileHover={{ y: -5 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
           >
-            <ellipse cx="0" cy="-5" rx="60" ry="6" fill="url(#lecGlow)" opacity="0.7" />
-            <g transform="translate(0 -14)">
-              <rect x="-46" y="-3" width="92" height="3" fill="#1a1410" opacity="0.5" />
-              <rect x="-46" y="-22" width="92" height="22" fill="url(#bookCover)" stroke="#c8941d" strokeWidth="0.7" />
-              <rect x="-46" y="-22" width="6" height="22" fill="#c8941d" opacity="0.7" />
-              <rect x="-38" y="-22" width="2" height="22" fill="#1a1410" opacity="0.5" />
-              <text x="0" y="-15" textAnchor="middle" fontFamily="'SF Mono', Consolas, monospace" fontSize="6" letterSpacing="0.35em" fill="#c8941d" opacity="0.85">VOL · 2025</text>
-              <line x1="-32" y1="-12" x2="32" y2="-12" stroke="#c8941d" strokeWidth="0.4" opacity="0.6" />
-              <text x="0" y="-3" textAnchor="middle" fontFamily="Georgia, serif" fontWeight="700" fontSize="10" fill="#ece6d6" letterSpacing="0.05em">CONFERENCE  No.  {String(data.site.conferenceNumber).padStart(2, "0")}</text>
+            <ellipse cx="0" cy="184" rx="138" ry="18" fill="#050302" opacity="0.62" />
+            <path d="M -112 0 L 112 0 L 136 32 L -136 32 Z" fill="url(#podiumTop)" stroke="#f4c97a" strokeWidth="1.1" />
+            <path d="M -136 32 L 136 32 L 112 190 L -112 190 Z" fill="url(#podiumFace)" stroke="#c8941d" strokeWidth="1.1" />
+            <path d="M -102 54 L 102 54 L 86 160 L -86 160 Z" fill="#120b07" stroke="#c8941d" strokeWidth="0.7" opacity="0.72" />
+            <path d="M -72 32 L -54 190" stroke="#f4c97a" strokeWidth="0.5" opacity="0.26" />
+            <path d="M 72 32 L 54 190" stroke="#f4c97a" strokeWidth="0.5" opacity="0.26" />
+            <path d="M -68 12 Q -36 -14 0 12 Q 36 -14 68 12" fill="none" stroke="#ece6d6" strokeWidth="0.9" opacity="0.36" />
+            <circle cx="-24" cy="10" r="3" fill="#1a1410" stroke="#c8941d" strokeWidth="0.5" />
+            <circle cx="24" cy="10" r="3" fill="#1a1410" stroke="#c8941d" strokeWidth="0.5" />
+            <line x1="-24" y1="10" x2="-54" y2="-12" stroke="#c8941d" strokeWidth="0.7" opacity="0.72" />
+            <line x1="24" y1="10" x2="54" y2="-12" stroke="#c8941d" strokeWidth="0.7" opacity="0.72" />
+
+            <g textAnchor="middle">
+              <text x="0" y="78" fontFamily="'SF Mono', Consolas, monospace" fontSize="8" letterSpacing="0.42em" fill="#c8941d" opacity="0.9">
+                VOL · 2025
+              </text>
+              <line x1="-64" y1="88" x2="64" y2="88" stroke="#c8941d" strokeWidth="0.55" opacity="0.56" />
+              <text x="0" y="110" fontFamily="Georgia, serif" fontWeight="700" fontSize="18" fill="#ece6d6" letterSpacing="0.04em">
+                CONFERENCE
+              </text>
+              <text x="0" y="130" fontFamily="'SF Mono', Consolas, monospace" fontSize="9" letterSpacing="0.2em" fill="#f4c97a" opacity="0.85">
+                No. {String(data.site.conferenceNumber).padStart(2, "0")}
+              </text>
+              <text x="0" y="148" fontFamily="Georgia, serif" fontStyle="italic" fontSize="10" fill="#ece6d6" opacity="0.56">
+                open the archive
+              </text>
             </g>
           </motion.g>
         </g>
 
-        <g transform="translate(255 480)">
+        <g transform="translate(246 486)">
           <circle r="34" fill="url(#warmLight)" opacity="0.45" />
           <circle r="26" fill="#1a1410" stroke="#c8941d" strokeWidth="1.4" />
           <circle r="24" fill="#ece6d6" opacity="0.92" />
@@ -434,7 +595,7 @@ export default function Study() {
           <line x1="0" y1="0" x2="0" y2="-14" stroke="#1a1410" strokeWidth="1.4" strokeLinecap="round" />
           <line x1="0" y1="0" x2="9" y2="5" stroke="#1a1410" strokeWidth="1.6" strokeLinecap="round" />
           <circle r="1.6" fill="#1a1410" />
-          <text y="44" textAnchor="middle" fontFamily="'SF Mono', Consolas, monospace" fontSize="7" letterSpacing="0.25em" fill="#c8941d" opacity="0.85">
+          <text y="-42" textAnchor="middle" fontFamily="'SF Mono', Consolas, monospace" fontSize="7" letterSpacing="0.25em" fill="#c8941d" opacity="0.85">
             NEXT  ·  in  {data.site.nextConferenceInDays}  days
           </text>
         </g>
@@ -460,6 +621,7 @@ export default function Study() {
           <text>← BACK</text>
         </g>
       </svg>
+      </DepthScene>
     </motion.div>
   );
 }
@@ -469,6 +631,7 @@ function MobileStudy({ navigate, openBook, openQuestions, experiments, conferenc
 
   return (
     <motion.div
+      className="archive-surface"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -500,30 +663,97 @@ function MobileStudy({ navigate, openBook, openQuestions, experiments, conferenc
           </span>
         </div>
 
+        <button
+          onClick={() => navigate("/conferences")}
+          style={{
+            position: "relative",
+            width: "100%",
+            minHeight: "156px",
+            background: "linear-gradient(160deg, rgba(74,48,32,0.86), rgba(12,8,5,0.96))",
+            border: "0.5px solid rgba(244,201,122,0.58)",
+            padding: "20px 16px",
+            cursor: "pointer",
+            textAlign: "center",
+            marginBottom: "28px",
+            boxShadow: "0 24px 48px rgba(0,0,0,0.32), inset 0 0 34px rgba(244,201,122,0.06)",
+            overflow: "hidden"
+          }}
+        >
+          <div style={{
+            position: "absolute",
+            left: "-12%",
+            right: "-12%",
+            bottom: "-24px",
+            height: "70px",
+            borderTop: "1px solid rgba(200,148,29,0.55)",
+            borderRadius: "50% 50% 0 0",
+            opacity: 0.7
+          }} />
+          <div style={{ position: "relative" }}>
+            <div style={{ fontFamily: "var(--mono)", fontSize: "8px", letterSpacing: "0.34em", color: "var(--amber)", opacity: 0.86, marginBottom: "14px" }}>
+              COUNCIL  FLOOR
+            </div>
+            <div style={{ fontFamily: "Georgia, serif", fontWeight: 700, fontSize: "26px", letterSpacing: "0.04em", color: "var(--parchment)", lineHeight: 1.05 }}>
+              CONFERENCE
+            </div>
+            <div style={{ fontFamily: "var(--mono)", fontSize: "9px", letterSpacing: "0.24em", color: "var(--amber)", opacity: 0.86, marginTop: "8px" }}>
+              No. {noStr}
+            </div>
+            <motion.div
+              animate={{ opacity: [0.5, 0.95, 0.5] }}
+              transition={{ duration: 3, repeat: Infinity }}
+              style={{ fontFamily: "var(--mono)", fontSize: "9px", letterSpacing: "0.34em", color: "var(--amber)", marginTop: "18px" }}
+            >
+              IN  PROGRESS
+            </motion.div>
+            <div style={{ fontFamily: "Georgia, serif", fontStyle: "italic", fontSize: "11px", color: "var(--parchment)", opacity: 0.48, marginTop: "8px" }}>
+              next observation in {nextConferenceDays} days
+            </div>
+          </div>
+        </button>
+
         <div style={{ marginBottom: "28px" }}>
           <div style={{ fontFamily: "var(--mono)", fontSize: "8px", letterSpacing: "0.35em", color: "var(--amber)", opacity: 0.7, marginBottom: "12px" }}>
             F O U R · V O L U M E S
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)",
+              gap: "10px",
+              width: "100%",
+              maxWidth: "358px",
+              overflow: "hidden"
+            }}
+          >
             {data.books.map((book) => (
               <button
                 key={book.id}
                 onClick={() => openBook(book.id)}
                 style={{
-                  background: book.coverColor,
+                  position: "relative",
+                  overflow: "hidden",
+                  width: "100%",
+                  minWidth: 0,
+                  minHeight: "92px",
+                  background: `linear-gradient(135deg, ${book.coverColor} 0%, ${book.coverColor} 58%, #120b07 100%)`,
                   border: "0.5px solid #c8941d",
-                  padding: "16px 12px",
+                  boxShadow: "0 18px 32px rgba(0,0,0,0.22), inset 0 0 0 1px rgba(244,201,122,0.08)",
+                  padding: "18px 14px 16px 26px",
                   textAlign: "left",
                   cursor: "pointer"
                 }}
               >
-                <div style={{ fontFamily: "var(--mono)", fontSize: "7px", letterSpacing: "0.25em", color: "#c8941d", opacity: 0.8, marginBottom: "4px" }}>
+                <span style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: "9px", background: "rgba(8,5,3,0.28)", borderRight: "0.5px solid rgba(244,201,122,0.34)" }} />
+                <span style={{ position: "absolute", left: "13px", right: "12px", top: "9px", height: "7px", background: "linear-gradient(90deg, rgba(159,95,50,0.7), rgba(244,201,122,0.82), rgba(159,95,50,0.7))" }} />
+                <span style={{ position: "absolute", left: "13px", right: "12px", bottom: "9px", height: "7px", background: "linear-gradient(90deg, rgba(159,95,50,0.7), rgba(244,201,122,0.82), rgba(159,95,50,0.7))" }} />
+                <div style={{ position: "relative", fontFamily: "var(--mono)", fontSize: "7px", letterSpacing: "0.25em", color: "#c8941d", opacity: 0.86, marginBottom: "6px" }}>
                   VOL · {book.vol}
                 </div>
-                <div style={{ fontFamily: "Georgia, serif", fontStyle: "italic", fontSize: "15px", color: "var(--parchment)" }}>
+                <div style={{ position: "relative", fontFamily: "Georgia, serif", fontStyle: "italic", fontSize: "16px", color: "var(--parchment)" }}>
                   {book.physicist}
                 </div>
-                <div style={{ fontFamily: "Georgia, serif", fontStyle: "italic", fontSize: "10px", color: "var(--parchment)", opacity: 0.55, marginTop: "4px" }}>
+                <div style={{ position: "relative", fontFamily: "Georgia, serif", fontStyle: "italic", fontSize: "10px", color: "var(--parchment)", opacity: 0.6, marginTop: "4px" }}>
                   {book.role}
                 </div>
               </button>
@@ -605,32 +835,6 @@ function MobileStudy({ navigate, openBook, openQuestions, experiments, conferenc
             ))}
           </div>
         </div>
-
-        <button
-          onClick={() => navigate("/conferences")}
-          style={{
-            width: "100%",
-            background: "#241a12",
-            border: "0.5px solid rgba(200,148,29,0.5)",
-            padding: "16px",
-            cursor: "pointer",
-            textAlign: "center"
-          }}
-        >
-          <div style={{ fontFamily: "Georgia, serif", fontStyle: "italic", fontSize: "11px", color: "var(--parchment)", opacity: 0.55, marginBottom: "6px" }}>
-            Conference No. {noStr}
-          </div>
-          <motion.div
-            animate={{ opacity: [0.5, 0.9, 0.5] }}
-            transition={{ duration: 3, repeat: Infinity }}
-            style={{ fontFamily: "var(--mono)", fontSize: "9px", letterSpacing: "0.4em", color: "var(--amber)" }}
-          >
-            IN  PROGRESS
-          </motion.div>
-          <div style={{ fontFamily: "var(--mono)", fontSize: "8px", letterSpacing: "0.2em", color: "var(--parchment)", opacity: 0.35, marginTop: "8px" }}>
-            NEXT · in {nextConferenceDays} days  ·  tap to open archive
-          </div>
-        </button>
 
         <div style={{ textAlign: "center", marginTop: "32px", fontFamily: "var(--mono)", fontSize: "8px", letterSpacing: "0.3em", color: "var(--parchment)", opacity: 0.25 }}>
           THE  STUDY  ·  COPENHAGEN  AI

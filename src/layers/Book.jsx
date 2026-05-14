@@ -37,6 +37,7 @@ export default function Book() {
 
   return (
     <motion.div
+      className="archive-surface"
       initial={{ opacity: 0, scale: 0.92 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
@@ -70,6 +71,7 @@ function BookSpread({ book, prevBook, nextBook, navigate, baseUrl }) {
       <SideNav side="right" book={nextBook} navigate={navigate} />
 
       <div
+        className="cinematic-panel"
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
